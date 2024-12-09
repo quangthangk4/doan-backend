@@ -1,8 +1,13 @@
 package com.doan.cnpm.repository;
 
+import com.doan.cnpm.dto.response.ProductDetailResponseDTO;
 import com.doan.cnpm.entity.Product;
+import com.doan.cnpm.entity.ProductImage;
+import jakarta.persistence.SqlResultSetMapping;
+import jakarta.persistence.SqlResultSetMappings;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,4 +44,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "GROUP BY p.productid",
             nativeQuery = true)
     List<Object[]> findProductAllResponse();
+
+    @Query(value = "SELECT p.productid,p.name, p.description, p.material, p.price_selling, p.status, " +
+            "COUNT(r.ratingid), COUNT(r.content) " +
+            "FROM product p " +
+            "LEFT JOIN rating r ON p.productid = r.productid " +
+            "WHERE p.productid = :productid " +
+            "GROUP BY p.productid", nativeQuery = true)
+    Object[] findProductDetails(@Param("productid") Long productid);
 }
