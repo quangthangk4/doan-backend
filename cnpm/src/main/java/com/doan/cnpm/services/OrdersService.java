@@ -1,7 +1,9 @@
 package com.doan.cnpm.services;
 
+import com.doan.cnpm.dto.request.CartResponseDTO;
 import com.doan.cnpm.dto.request.OrdersRequestDTO;
 import com.doan.cnpm.entity.*;
+import com.doan.cnpm.mapper.OrderMapper;
 import com.doan.cnpm.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,10 @@ public class OrdersService {
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
     private final IncludeRepository includeRepository;
+    private final OrderMapper orderMapper;
 
 
-    public void AddToOrder(OrdersRequestDTO ordersRequestDTO) {
+    public void AddToCart(OrdersRequestDTO ordersRequestDTO) {
 
         if ( ordersRequestDTO.getCustomerId() == null || ordersRequestDTO.getProductId() == null
         || ordersRequestDTO.getProductId() == null  || ordersRequestDTO.getQuantity() == null) {
@@ -91,5 +94,12 @@ public class OrdersService {
 
         // Lưu lại Order với tổng giá trị mới
         ordersRepository.save(order);
+    }
+
+    public List<CartResponseDTO> ShoppingCart(Long customerID) {
+        if ( customerID == null ) {
+            throw new RuntimeException("chưa truyền customerID bây ơi!!");
+        }
+        return orderMapper.toCartResponseDTOs(ordersRepository.findAllProductCart(customerID));
     }
 }

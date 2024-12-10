@@ -21,6 +21,7 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ratingID;
 
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "customerID")

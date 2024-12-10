@@ -23,6 +23,18 @@ public interface ProductMapper {
                 .build();
     }
 
+
+    default List<AllProductResponse> toAllProductResponses(List<Object[]> products) {
+        if (products == null) {
+            return null;
+        }
+
+        return products.stream()
+                .map(this::toAllProductResponse)
+                .collect(Collectors.toList());
+    }
+
+
     default ProductDetailResponseDTO toProductDetailResponseDTO(Object[] product,List<String> images) {
         if (product == null && images == null) {
             return null;
@@ -39,15 +51,5 @@ public interface ProductMapper {
                 .commentCount(((Number) product[7]).longValue())
                 .images(images)
                 .build();
-    }
-
-    default List<AllProductResponse> toAllProductResponses(List<Object[]> products) {
-        if (products == null) {
-            return null;
-        }
-
-        return products.stream()
-                .map(this::toAllProductResponse)
-                .collect(Collectors.toList());
     }
 }
