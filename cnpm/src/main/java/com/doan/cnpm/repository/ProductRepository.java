@@ -52,4 +52,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "WHERE p.productid = :productid " +
             "GROUP BY p.productid", nativeQuery = true)
     Object[] findProductDetails(@Param("productid") Long productid);
+
 }

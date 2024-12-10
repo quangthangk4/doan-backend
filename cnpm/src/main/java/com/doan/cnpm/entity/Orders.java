@@ -31,15 +31,16 @@ public class Orders {
 
     private String shippingAddress;
 
-    @JsonBackReference
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "customerID", referencedColumnName = "customerID")
     private Customer customer;
 
-    @JsonBackReference
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "employeeID", referencedColumnName = "employeeID")
     private Employee employee;
+
 
 
     @OneToMany(mappedBy = "orders", fetch = FetchType.LAZY)

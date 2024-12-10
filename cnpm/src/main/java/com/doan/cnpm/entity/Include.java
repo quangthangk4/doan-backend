@@ -33,5 +33,5 @@ public class Include {
     @JoinColumn(name = "productID", referencedColumnName = "productID") // Khóa ngoại cho Product
     private Product product;
 
-    private int quantity;
+    private Long quantity;
 }
