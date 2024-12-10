@@ -1,4 +1,4 @@
-#Cách chạy backend
+# Cách chạy backend
 - cài đặt JDK
 - cài đặt inteilij idea (nên dùng)
 - pull code về, mở lên (click chuột phải vào file pom.xml dí chuột vào maven chọn Sync Project để tải toàn bộ thư viện về)
