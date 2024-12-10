@@ -2,11 +2,9 @@ package com.doan.cnpm.controller;
 
 import com.doan.cnpm.dto.request.CartResponseDTO;
 import com.doan.cnpm.dto.request.OrdersRequestDTO;
-import com.doan.cnpm.entity.Orders;
-import com.doan.cnpm.repository.OrdersRepository;
+import com.doan.cnpm.repository.IncludeRepository;
 import com.doan.cnpm.services.OrdersService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.query.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,9 @@ import java.util.List;
 public class OrdersController {
     @Autowired
     private OrdersService ordersService;
+
+    @Autowired
+    private IncludeRepository includeRepository;
 
     @PostMapping("/addtocart")
     public ResponseEntity<String> createOrder(@RequestBody OrdersRequestDTO ordersRequestDTO) {
@@ -39,5 +40,29 @@ public class OrdersController {
     @GetMapping("/cart/{customerID}")
     public ResponseEntity<List<CartResponseDTO>> getCart(@PathVariable("customerID") Long customerID) {
         return ResponseEntity.ok(ordersService.ShoppingCart(customerID));
+    }
+
+    @PutMapping("/checkout/{customerID}")
+    public ResponseEntity<String> updateCheckOut(@PathVariable("customerID") Long customerID) {
+        try {
+            ordersService.orderCheckOut(customerID);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Thanh Toán thành công, lần sau mua tiếp nha bà:))!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("lỗi rồi cu em ơ: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/itemcart/{customerID}/{productID}")
+    public ResponseEntity<String> deleteItemCart(@PathVariable Long customerID, @PathVariable Long productID) {
+        try {
+            ordersService.orderRemoveItem(customerID, productID);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Xóa sản phẩm thành công!!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("lỗi rồi cu em ơ: " + e.getMessage());
+        }
     }
 }

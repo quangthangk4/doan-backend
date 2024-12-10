@@ -102,4 +102,28 @@ public class OrdersService {
         }
         return orderMapper.toCartResponseDTOs(ordersRepository.findAllProductCart(customerID));
     }
+
+    public void orderCheckOut(Long customerID) {
+        // kiểm tra input đầu vào
+        if ( customerID == null ) {
+            throw new RuntimeException("Vui lòng truyền customerID vào !!");
+        }
+        //kiểm tra giỏ hàng của người đó có đang có đồ hay không
+        Orders order = ordersRepository.findOrderByCustomerIDAndStatusPending(customerID)
+                .orElseThrow(() -> new RuntimeException("Không có sản phẩm nào trong giỏ hàng, vui lòng thêm sản phẩm!"));
+
+        order.setStatus(Orders.Status.completed);
+        ordersRepository.save(order);
+    }
+
+
+    public void orderRemoveItem(Long customerID, Long productID) {
+        if ( customerID == null || productID == null ) {
+            throw new RuntimeException("truyền thiếu biến!! hoặc chưa truyền đủ biến!!");
+        }
+        Orders order = ordersRepository.findOrderByCustomerIDAndStatusPending(customerID)
+                .orElseThrow(() -> new RuntimeException("Không có sản phẩm nào trong giỏ hàng, " +
+                        "thì sao mà xóa được, truyền sai rùi...!"));
+        includeRepository.deleteItemInCart(order.getOrderID(), productID);
+    }
 }

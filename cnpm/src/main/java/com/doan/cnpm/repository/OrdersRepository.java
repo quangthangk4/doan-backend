@@ -23,4 +23,9 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
             "WHERE o.customerid = ?1 and o.status = 'pending' ",
             nativeQuery = true)
     List<Object[]> findAllProductCart(Long customerID);
+
+
+    @Query(value = "SELECT * FROM orders o " +
+            "WHERE o.customerid =:customerID and o.status = 'pending' " , nativeQuery = true)
+    Optional<Orders> findOrderByCustomerIDAndStatusPending(@Param("customerID") Long customerID);
 }
