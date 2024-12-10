@@ -1,0 +1,181 @@
+http://localhost:8080/product/man
+Phương thức: Get
+Mô tả: lấy tất cả danh sách áo quần nam
+input: Không
+output: [
+    {
+        "productID": 101,
+        "name": "Áo sơ mi nam",
+        "priceSelling": 450000.0,
+        "ratingCount": 1,
+        "imageUrl": "http://example.com/images/product1_1.jpg"
+    },
+    {
+        "productID": 103,
+        "name": "Giày thể thao",
+        "priceSelling": 700000.0,
+        "ratingCount": 1,
+        "imageUrl": "http://example.com/images/product3_1.jpg"
+    },
+    {
+        "productID": 107,
+        "name": "Áo khoác",
+        "priceSelling": 800000.0,
+        "ratingCount": 1,
+        "imageUrl": null
+    },
+    {
+        "productID": 109,
+        "name": "Áo thun nam",
+        "priceSelling": 300000.0,
+        "ratingCount": 1,
+        "imageUrl": null
+    }
+]
+
+
+
+
+http://localhost:8080/product/woman
+Phương thức: Get
+Mô tả: lấy tất cả danh sách áo quần nữ
+input: Không
+output: [
+    {
+        "productID": 102,
+        "name": "Đầm nữ",
+        "priceSelling": 500000.0,
+        "ratingCount": 1,
+        "imageUrl": "http://example.com/images/product2_1.jpg"
+    },
+    {
+        "productID": 104,
+        "name": "Túi xách nữ",
+        "priceSelling": 1500000.0,
+        "ratingCount": 1,
+        "imageUrl": "http://example.com/images/product4_1.jpg"
+    },
+    {
+        "productID": 108,
+        "name": "Quần jean nữ",
+        "priceSelling": 650000.0,
+        "ratingCount": 1,
+        "imageUrl": null
+    },
+    {
+        "productID": 110,
+        "name": "Váy liền nữ",
+        "priceSelling": 1200000.0,
+        "ratingCount": 1,
+        "imageUrl": null
+    }
+]
+
+
+http://localhost:8080/product/all
+Phương thức: Get
+Mô tả: lấy tất cả danh sách áo quần
+input: Không
+output: [
+    {
+        "productID": 101,
+        "name": "Áo sơ mi nam",
+        "priceSelling": 450000.0,
+        "ratingCount": 1,
+        "imageUrl": "http://example.com/images/product1_1.jpg"
+    },
+    {
+        "productID": 102,
+        "name": "Đầm nữ",
+        "priceSelling": 500000.0,
+        "ratingCount": 1,
+        "imageUrl": "http://example.com/images/product2_1.jpg"
+    },
+    {
+        "productID": 103,
+        "name": "Giày thể thao",
+        "priceSelling": 700000.0,
+        "ratingCount": 1,
+        "imageUrl": "http://example.com/images/product3_1.jpg"
+    }....
+]
+
+
+http://localhost:8080/product/detail/${productID}
+Phương thức: Get
+Mô tả: lấy thông tin sản phẩm cụ thể
+input: productID
+output: {
+    "productID": 101,
+    "name": "Áo sơ mi nam",
+    "description": "Áo sơ mi cao cấp, chất liệu cotton",
+    "material": "Cotton",
+    "priceSelling": 450000.0,
+    "status": "in_stock",
+    "ratingCount": 1,
+    "commentCount": 1,
+    "images": [
+        "http://example.com/images/product1_1.jpg",
+        "http://example.com/images/product1_2.jpg"
+    ]
+}
+
+
+
+http://localhost:8080/orders/addtocart
+phương thức: POST
+mô tả: thêm sản phẩm vào giỏ hàng
+input: {
+    "customerId": 1,
+    "productId": 103,
+    "quantity": 2,
+    "date": "2024-12-11"
+}
+output: Order has been successfully added!
+các trường hợp output còn lại, nghĩa là truyền biến vào sai, đảm bảo truyền đủ biến
+
+
+
+
+http://localhost:8080/orders/cart/{customerID}
+Phương thức: GET
+mô tả: hiễn thị dữ liệu sản phẩm trong giỏ hàng
+input: customerID
+output: [
+    {
+        "name": "Đầm nữ",
+        "gender": "woman",
+        "price_selling": 3900000.0,
+        "quantity": 5,
+        "image": "http://example.com/images/product2_1.jpg"
+    },
+    {
+        "name": "Giày thể thao",
+        "gender": "man",
+        "price_selling": 3900000.0,
+        "quantity": 2,
+        "image": "http://example.com/images/product3_1.jpg"
+    }
+]
+
+
+
+
+http://localhost:8080/orders/checkout/{customerID}
+Phương thức: PUT
+Mô tả: Khi ấn checkout thanh toán, sẽ thanh toán và không hiện ở bên giỏ hàng nữa
+input: customerID
+output: Thanh Toán thành công, lần sau mua tiếp nha bà:))!
+các output khác nghĩa là lỗi, kiểm tra lại customerID nhập vào
+
+
+
+
+
+
+http://localhost:8080/orders/{customerID}/{productID}
+Phương thức: DELETE
+Mô tả: khi ấn vào nút xóa sản phẩm ra khỏi giỏ hàng
+input: CustomerID, productID
+output: Xóa sản phẩm thành công!!
+các output khác nghĩa là truyền biến vào sai
