@@ -198,3 +198,89 @@ output:
     "orderCount": 2
 }
 
+
+
+http://localhost:8080/admin/allorder
+Phương thức: GET
+Mô tả: lấy toàn bộ danh sách order của khách hàng
+input: không
+output:
+[
+    {
+    "orderid": 2,
+    "date": "2024-12-02",
+    "full_name": "Trần Thị B",
+    "status": "pending",
+    "total_price": 1200000.0
+    },
+    {
+    "orderid": 4,
+    "date": "2024-12-04",
+    "full_name": "Phạm Thanh D",
+    "status": "pending",
+    "total_price": 1800000.0
+    },
+    {
+    "orderid": 6,
+    "date": "2024-12-06",
+    "full_name": "Vũ Mai F",
+    "status": "pending",
+    "total_price": 2500000.0
+    },
+    {
+    "orderid": 8,
+    "date": "2024-12-08",
+    "full_name": "Nguyễn Hữu H",
+    "status": "pending",
+    "total_price": 3500000.0
+    },
+    {
+    "orderid": 10,
+    "date": "2024-12-10",
+    "full_name": "Lý Vân J",
+    "status": "pending",
+    "total_price": 2200000.0
+    },
+    {
+    "orderid": 14,
+    "date": "2024-12-11",
+    "full_name": "Nguyễn Văn A",
+    "status": "pending",
+    "total_price": 3900000.0
+    },
+    {
+    "orderid": 1,
+    "date": "2024-12-01",
+    "full_name": "Nguyễn Văn A",
+    "status": "completed",
+    "total_price": 1500000.0
+    },
+    {
+    "orderid": 3,
+    "date": "2024-12-11",
+    "full_name": "Lê Minh C",
+    "status": "completed",
+    "total_price": 2000000.0
+    },
+    {
+    "orderid": 5,
+    "date": "2024-12-11",
+    "full_name": "Bùi Hồng E",
+    "status": "completed",
+    "total_price": 1500000.0
+    },
+    {
+    "orderid": 7,
+    "date": "2024-12-07",
+    "full_name": "Đoàn Thế G",
+    "status": "completed",
+    "total_price": 3000000.0
+    },
+    {
+    "orderid": 9,
+    "date": "2024-12-09",
+    "full_name": "Hoàng Duy I",
+    "status": "completed",
+    "total_price": 1800000.0
+    }
+]

@@ -2,6 +2,7 @@ package com.doan.cnpm.services;
 
 import com.doan.cnpm.dto.request.CartResponseDTO;
 import com.doan.cnpm.dto.request.OrdersRequestDTO;
+import com.doan.cnpm.dto.response.ListOrderResponseDTO;
 import com.doan.cnpm.dto.response.TotalSaleTodayResponseDTO;
 import com.doan.cnpm.entity.*;
 import com.doan.cnpm.mapper.OrderMapper;
@@ -137,5 +138,10 @@ public class OrdersService {
         object = (Object[]) object[0];
         TotalSaleTodayResponseDTO mapper = totalSaleTodayMapper.toTotalSaleTodayResponseDTO(object);
         return mapper;
+    }
+
+//    danh sách order cho admin
+    public List<ListOrderResponseDTO> listOrders() {
+        return orderMapper.toListOrderResponseDTOs(ordersRepository.listOrdersForAdmin());
     }
 }
