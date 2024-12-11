@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -38,7 +39,7 @@ public class Rating {
     @Max(5)
     private int star;
 
-    private Date date;
+    private LocalDate date;
 
     // Getters and Setters
 }

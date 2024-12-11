@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -15,5 +16,5 @@ public class OrdersRequestDTO {
     private Long customerId;
     private Long productId;
     private Long quantity;
-    private Date date;
+    private LocalDate date;
 }

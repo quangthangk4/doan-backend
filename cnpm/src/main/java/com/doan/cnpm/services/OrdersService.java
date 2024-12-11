@@ -2,14 +2,15 @@ package com.doan.cnpm.services;
 
 import com.doan.cnpm.dto.request.CartResponseDTO;
 import com.doan.cnpm.dto.request.OrdersRequestDTO;
+import com.doan.cnpm.dto.response.TotalSaleTodayResponseDTO;
 import com.doan.cnpm.entity.*;
 import com.doan.cnpm.mapper.OrderMapper;
+import com.doan.cnpm.mapper.TotalSaleTodayMapper;
 import com.doan.cnpm.repository.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -23,6 +24,7 @@ public class OrdersService {
     private final ProductRepository productRepository;
     private final IncludeRepository includeRepository;
     private final OrderMapper orderMapper;
+    private final TotalSaleTodayMapper totalSaleTodayMapper;
 
 
     public void AddToCart(OrdersRequestDTO ordersRequestDTO) {
@@ -125,5 +127,15 @@ public class OrdersService {
                 .orElseThrow(() -> new RuntimeException("Không có sản phẩm nào trong giỏ hàng, " +
                         "thì sao mà xóa được, truyền sai rùi...!"));
         includeRepository.deleteItemInCart(order.getOrderID(), productID);
+    }
+
+//    =========================================================================================
+//    ADMIN
+    public TotalSaleTodayResponseDTO totalSalesToday(){
+        LocalDate today = LocalDate.now();
+        Object[] object = ordersRepository.totalPriceSellingToday(today);
+        object = (Object[]) object[0];
+        TotalSaleTodayResponseDTO mapper = totalSaleTodayMapper.toTotalSaleTodayResponseDTO(object);
+        return mapper;
     }
 }

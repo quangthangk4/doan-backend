@@ -1,3 +1,6 @@
+USER
+
+
 http://localhost:8080/product/man
 Phương thức: Get
 Mô tả: lấy tất cả danh sách áo quần nam
@@ -179,3 +182,19 @@ Mô tả: khi ấn vào nút xóa sản phẩm ra khỏi giỏ hàng
 input: CustomerID, productID
 output: Xóa sản phẩm thành công!!
 các output khác nghĩa là truyền biến vào sai
+
+//        ==============================================================================================
+//        ==============================================================================================
+        ADMIN
+
+http://localhost:8080/admin/totalSalesToday
+Phương thức: GET
+Mô tả: trả về kết quả kinh doanh trong ngày
+input: không
+output:
+{
+    "total": 3500000.0,
+    "customerCount": 2,
+    "orderCount": 2
+}
+

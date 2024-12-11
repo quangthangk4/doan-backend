@@ -1,5 +1,6 @@
 package com.doan.cnpm.repository;
 
+import com.doan.cnpm.dto.response.TotalSaleTodayResponseDTO;
 import com.doan.cnpm.entity.Customer;
 import com.doan.cnpm.entity.Orders;
 import org.hibernate.query.Order;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,4 +30,10 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
     @Query(value = "SELECT * FROM orders o " +
             "WHERE o.customerid =:customerID and o.status = 'pending' " , nativeQuery = true)
     Optional<Orders> findOrderByCustomerIDAndStatusPending(@Param("customerID") Long customerID);
+
+    @Query(value = "select sum(o.total_price),count(o.customerid), count(orderid) " +
+            "from orders o \n" +
+            "where o.status = 'completed' and o.date = :today " +
+            "group by o.status ", nativeQuery = true)
+    Object[] totalPriceSellingToday(@Param("today") LocalDate today);
 }
