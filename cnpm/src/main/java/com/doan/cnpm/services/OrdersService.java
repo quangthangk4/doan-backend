@@ -2,6 +2,7 @@ package com.doan.cnpm.services;
 
 import com.doan.cnpm.dto.request.CartResponseDTO;
 import com.doan.cnpm.dto.request.OrdersRequestDTO;
+import com.doan.cnpm.dto.response.DetailOrderResponseDTO;
 import com.doan.cnpm.dto.response.ListOrderResponseDTO;
 import com.doan.cnpm.dto.response.TotalSaleTodayResponseDTO;
 import com.doan.cnpm.entity.*;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -143,5 +145,49 @@ public class OrdersService {
 //    danh sách order cho admin
     public List<ListOrderResponseDTO> listOrders() {
         return orderMapper.toListOrderResponseDTOs(ordersRepository.listOrdersForAdmin());
+    }
+
+
+//   danh sách sản phẩm của order và thông tin của customer đó
+    public DetailOrderResponseDTO getDetailOrder(Long orderID) {
+        // Lấy dữ liệu từ repository
+        List<Object[]> results = ordersRepository.AllProductInOrder(orderID);
+
+        // Tạo danh sách sản phẩm
+        List<DetailOrderResponseDTO.ProductDTO> productList = new ArrayList<>();
+        String fullName = null, phoneNumber = null, emailAddress = null, shippingAddress = null;
+
+        for (Object[] result : results) {
+            // Ánh xạ từng sản phẩm
+            DetailOrderResponseDTO.ProductDTO product = DetailOrderResponseDTO.ProductDTO.builder()
+                    .name((String) result[0])
+                    .brand((String) result[1])
+                    .material((String) result[2])
+                    .price_selling(((Number) result[3]).doubleValue())
+                    .status(DetailOrderResponseDTO.ProductDTO.Status.valueOf((String) result[4]))
+                    .quantity(((Number) result[5]).longValue())
+                    .total_price(((Number) result[6]).doubleValue())
+                    .image((String) result[7])
+                    .build();
+
+            productList.add(product);
+
+            // Chỉ cần ánh xạ thông tin khách hàng một lần
+            if (fullName == null) {
+                fullName = (String) result[8];
+                phoneNumber = (String) result[9];
+                emailAddress = (String) result[10];
+                shippingAddress = (String) result[11];
+            }
+        }
+
+        // Tạo DTO cho chi tiết đơn hàng
+        return DetailOrderResponseDTO.builder()
+                .full_name(fullName)
+                .phone_number(phoneNumber)
+                .email(emailAddress)
+                .shipping_address(shippingAddress)
+                .products(productList)
+                .build();
     }
 }

@@ -284,3 +284,38 @@ output:
     "total_price": 1800000.0
     }
 ]
+
+
+http://localhost:8080/admin/allitem/{orderid}
+Phương thức: GET
+MÔ tả: khi admin ấn vào 1 order cụ thể trong trang danh sách đơn hàng thì sẽ hiễn thị ra sản phẩm có trong order đó
+input: orderid
+output:
+{
+    "full_name": "Nguyễn Văn A",
+    "phone_number": "0912345678",
+    "email": "nguyenvana@gmail.com",
+    "shipping_address": "Số 10, Đường Lê Lai, Hà Nội",
+    "products": [
+        {
+        "name": "Áo sơ mi nam",
+        "brand": "Nike",
+        "material": "Cotton",
+        "price_selling": 450000.0,
+        "status": "completed",
+        "quantity": 2,
+        "total_price": 900000.0,
+        "image": "http://example.com/images/product1_1.jpg"
+        },
+        {
+        "name": "Đầm nữ",
+        "brand": "Adidas",
+        "material": "Lụa",
+        "price_selling": 500000.0,
+        "status": "completed",
+        "quantity": 4,
+        "total_price": 2000000.0,
+        "image": "http://example.com/images/product2_1.jpg"
+        }
+    ]
+}

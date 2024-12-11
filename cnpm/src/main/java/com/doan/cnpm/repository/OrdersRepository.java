@@ -42,4 +42,17 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
             "from orders o left join customer c on o.customerid = c.customerid\n" +
             "order by o.status desc;" , nativeQuery = true)
     List<Object[]> listOrdersForAdmin();
+
+//    danh sách sản phẩm trong order đó,(tìm theo orderid)
+    @Query(value = "SELECT p.name, p.brand, p.material, p.price_selling, o.status, i.quantity, " +
+            "(p.price_selling * i.quantity) AS total_price, " +
+            "(SELECT i.imageurl FROM product_image i WHERE i.productid = p.productid LIMIT 1) AS imageurl, " +
+            "CONCAT(c.first_name, ' ', c.last_name) AS full_name, c.phone_number, c.email, o.shipping_address " +
+            "FROM orders o " +
+            "LEFT JOIN include i ON i.orderid = o.orderid " +
+            "LEFT JOIN product p ON p.productid = i.productid " +
+            "LEFT JOIN customer c ON c.customerid = o.customerid " +
+            "WHERE o.orderid = :orderid", nativeQuery = true)
+    List<Object[]> AllProductInOrder(@Param("orderid") Long orderid);
+
 }
