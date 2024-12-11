@@ -2,6 +2,8 @@ package com.doan.cnpm.services;
 
 import com.doan.cnpm.dto.response.AllProductResponse;
 import com.doan.cnpm.dto.response.ProductDetailResponseDTO;
+import com.doan.cnpm.dto.response.ProductResponseDTO;
+import com.doan.cnpm.entity.Product;
 import com.doan.cnpm.mapper.ProductMapper;
 import com.doan.cnpm.repository.ProductImageRepository;
 import com.doan.cnpm.repository.ProductRepository;
@@ -43,6 +45,11 @@ public class ProductService {
         product = (Object[]) product[0];
         ProductDetailResponseDTO result = productMapper.toProductDetailResponseDTO(product, images);
         return result;
+    }
+
+    //    Trả về danh sách product ( trả về entity lun, khỏi DTO đi đỡ tạo mệt người)
+    public List<ProductResponseDTO> getAllProductsForAdmin() {
+        return productRepository.findAllProduct();
     }
 
 }

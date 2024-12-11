@@ -1,6 +1,7 @@
 package com.doan.cnpm.repository;
 
 import com.doan.cnpm.dto.response.ProductDetailResponseDTO;
+import com.doan.cnpm.dto.response.ProductResponseDTO;
 import com.doan.cnpm.entity.Product;
 import com.doan.cnpm.entity.ProductImage;
 import jakarta.persistence.SqlResultSetMapping;
@@ -53,4 +54,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "GROUP BY p.productid", nativeQuery = true)
     Object[] findProductDetails(@Param("productid") Long productid);
 
+    @Query("SELECT new com.doan.cnpm.dto.response.ProductResponseDTO" +
+            "(p.productID ,p.name ,p.description ," +
+            "p.material ,p.brand ,p.quantitySold ,p.type ,p.quantityImport ," +
+            "p.priceImport ,p.priceSelling ,p.quantityStock ,p.gender ,p.status) from Product p")
+    List<ProductResponseDTO> findAllProduct();
 }

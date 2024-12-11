@@ -319,3 +319,166 @@ output:
         }
     ]
 }
+
+
+http://localhost:8080/admin/listproduct
+Phương thức: GET
+Mô tả: lấy doanh sách sản phẩm cho admin
+( lấy hết trường, có gì mn dùng trường nào thì gọi ra, nhác lọc quá, sợ sau này dùng tiếp thì tạo mới dở lắm:))
+input: không
+output:
+[
+    {
+    "productID": 101,
+    "name": "Áo sơ mi nam",
+    "description": "Áo sơ mi cao cấp, chất liệu cotton",
+    "material": "Cotton",
+    "brand": "Nike",
+    "quantitySold": 50,
+    "type": "Thời trang",
+    "quantityImport": 100,
+    "priceImport": 300000.0,
+    "priceSelling": 450000.0,
+    "quantityStock": 100,
+    "gender": "man",
+    "status": "in_stock"
+    },
+    {
+    "productID": 102,
+    "name": "Đầm nữ",
+    "description": "Đầm thiết kế thời trang, phù hợp cho mọi dịp",
+    "material": "Lụa",
+    "brand": "Adidas",
+    "quantitySold": 40,
+    "type": "Thời trang",
+    "quantityImport": 80,
+    "priceImport": 350000.0,
+    "priceSelling": 500000.0,
+    "quantityStock": 150,
+    "gender": "woman",
+    "status": "in_stock"
+    },
+    {
+    "productID": 103,
+    "name": "Giày thể thao",
+    "description": "Giày thể thao, chất liệu thoáng khí",
+    "material": "Da",
+    "brand": "Puma",
+    "quantitySold": 100,
+    "type": "Giày dép",
+    "quantityImport": 200,
+    "priceImport": 500000.0,
+    "priceSelling": 700000.0,
+    "quantityStock": 50,
+    "gender": "man",
+    "status": "in_stock"
+    },
+    {
+    "productID": 104,
+    "name": "Túi xách nữ",
+    "description": "Túi xách da thật, sang trọng và bền bỉ",
+    "material": "Da",
+    "brand": "Chanel",
+    "quantitySold": 30,
+    "type": "Phụ kiện",
+    "quantityImport": 50,
+    "priceImport": 1000000.0,
+    "priceSelling": 1500000.0,
+    "quantityStock": 70,
+    "gender": "woman",
+    "status": "in_stock"
+    },
+    {
+    "productID": 105,
+    "name": "Balo học sinh",
+    "description": "Balo chất liệu vải bền, thiết kế ngộ nghĩnh",
+    "material": "Vải",
+    "brand": "Vans",
+    "quantitySold": 150,
+    "type": "Phụ kiện",
+    "quantityImport": 200,
+    "priceImport": 200000.0,
+    "priceSelling": 350000.0,
+    "quantityStock": 60,
+    "gender": "other",
+    "status": "in_stock"
+    },
+    {
+    "productID": 106,
+    "name": "Kính râm",
+    "description": "Kính râm chống UV, bảo vệ mắt hiệu quả",
+    "material": "Nhựa",
+    "brand": "Ray-Ban",
+    "quantitySold": 60,
+    "type": "Phụ kiện",
+    "quantityImport": 120,
+    "priceImport": 400000.0,
+    "priceSelling": 550000.0,
+    "quantityStock": 80,
+    "gender": "other",
+    "status": "in_stock"
+    },
+    {
+    "productID": 107,
+    "name": "Áo khoác",
+    "description": "Áo khoác dày dặn, giữ ấm tốt",
+    "material": "Vải dạ",
+    "brand": "Uniqlo",
+    "quantitySold": 70,
+    "type": "Thời trang",
+    "quantityImport": 140,
+    "priceImport": 600000.0,
+    "priceSelling": 800000.0,
+    "quantityStock": 200,
+    "gender": "man",
+    "status": "in_stock"
+    },
+    {
+    "productID": 108,
+    "name": "Quần jean nữ",
+    "description": "Quần jean thiết kế hiện đại, phù hợp cho mùa hè",
+    "material": "Jean",
+    "brand": "Levi's",
+    "quantitySold": 90,
+    "type": "Thời trang",
+    "quantityImport": 150,
+    "priceImport": 500000.0,
+    "priceSelling": 650000.0,
+    "quantityStock": 50,
+    "gender": "woman",
+    "status": "in_stock"
+    },
+    {
+    "productID": 109,
+    "name": "Áo thun nam",
+    "description": "Áo thun cotton mềm mại, dễ chịu",
+    "material": "Cotton",
+    "brand": "Zara",
+    "quantitySold": 120,
+    "type": "Thời trang",
+    "quantityImport": 180,
+    "priceImport": 200000.0,
+    "priceSelling": 300000.0,
+    "quantityStock": 150,
+    "gender": "man",
+    "status": "in_stock"
+    },
+    {
+    "productID": 110,
+    "name": "Váy liền nữ",
+    "description": "Váy liền thân, thiết kế thanh lịch",
+    "material": "Vải lụa",
+    "brand": "Gucci",
+    "quantitySold": 50,
+    "type": "Thời trang",
+    "quantityImport": 70,
+    "priceImport": 800000.0,
+    "priceSelling": 1200000.0,
+    "quantityStock": 90,
+    "gender": "woman",
+    "status": "in_stock"
+    }
+]
+
+
+
