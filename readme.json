@@ -1,6 +1,7 @@
-USER
+API cho USER
 
 
+Trang: "Nam" của User
 http://localhost:8080/product/man
 Phương thức: Get
 Mô tả: lấy tất cả danh sách áo quần nam
@@ -38,7 +39,7 @@ output: [
 
 
 
-
+Trang: "Nữ" của user
 http://localhost:8080/product/woman
 Phương thức: Get
 Mô tả: lấy tất cả danh sách áo quần nữ
@@ -75,6 +76,7 @@ output: [
 ]
 
 
+Trang: "Hàng mới" của user (hiện tại chưa sắp xếp theo thứ tự ngày-> sửa sau)
 http://localhost:8080/product/all
 Phương thức: Get
 Mô tả: lấy tất cả danh sách áo quần
@@ -104,9 +106,10 @@ output: [
 ]
 
 
+Trang: "Thông tin sản phẩm" của user
 http://localhost:8080/product/detail/${productID}
 Phương thức: Get
-Mô tả: lấy thông tin sản phẩm cụ thể
+Mô tả: lấy thông tin sản phẩm cụ thể khi click vào 1 sản phẩm
 input: productID
 output: {
     "productID": 101,
@@ -124,10 +127,10 @@ output: {
 }
 
 
-
+Trang: "Thông tin sản phẩm" của user
 http://localhost:8080/orders/addtocart
 phương thức: POST
-mô tả: thêm sản phẩm vào giỏ hàng
+mô tả: thêm sản phẩm vào giỏ hàng (khi ấn vào ADD TO CART trong trang "Thông tin sản phẩm")
 input: {
     "customerId": 1,
     "productId": 103,
@@ -140,9 +143,10 @@ các trường hợp output còn lại, nghĩa là truyền biến vào sai, đ�
 
 
 
+Trang: "Shopping Cart" của user (Giỏ hàng)
 http://localhost:8080/orders/cart/{customerID}
 Phương thức: GET
-mô tả: hiễn thị dữ liệu sản phẩm trong giỏ hàng
+mô tả: hiễn thị sản phẩm trong giỏ hàng
 input: customerID
 output: [
     {
@@ -164,9 +168,11 @@ output: [
 
 
 
+Trang: "Shopping Cart" của user (Giỏ hàng)
 http://localhost:8080/orders/checkout/{customerID}
 Phương thức: PUT
-Mô tả: Khi ấn checkout thanh toán, sẽ thanh toán và không hiện ở bên giỏ hàng nữa
+Mô tả: Khi ấn CHECKOUT trong trang "Shopping Cart",
+    sẽ thanh toán và sản phẩm không hiển thị ở bên giỏ hàng nữa(nên tạo popup thanh toán thành công)
 input: customerID
 output: Thanh Toán thành công, lần sau mua tiếp nha bà:))!
 các output khác nghĩa là lỗi, kiểm tra lại customerID nhập vào
@@ -175,10 +181,10 @@ các output khác nghĩa là lỗi, kiểm tra lại customerID nhập vào
 
 
 
-
+Trang: "Shopping Cart" của user (Giỏ hàng)
 http://localhost:8080/orders/{customerID}/{productID}
 Phương thức: DELETE
-Mô tả: khi ấn vào nút xóa sản phẩm ra khỏi giỏ hàng
+Mô tả: khi ấn nút X ở cạnh sản phẩm, sản phẩm sẽ được xóa khỏi giỏ hàng
 input: CustomerID, productID
 output: Xóa sản phẩm thành công!!
 các output khác nghĩa là truyền biến vào sai
@@ -187,9 +193,10 @@ các output khác nghĩa là truyền biến vào sai
 //        ==============================================================================================
         ADMIN
 
+Trang: "Tổng quan" của Admin
 http://localhost:8080/admin/totalSalesToday
 Phương thức: GET
-Mô tả: trả về kết quả kinh doanh trong ngày
+Mô tả: trả về dữ liệu KẾT QUẢ KINH DOANH TRONG NGÀY trong trang "Tổng quan"
 input: không
 output:
 {
@@ -200,9 +207,10 @@ output:
 
 
 
+Trang: "Danh sách đơn hàng" trong mục "Đơn Hàng" của admin
 http://localhost:8080/admin/allorder
 Phương thức: GET
-Mô tả: lấy toàn bộ danh sách order của khách hàng
+Mô tả: Trả về toàn bộ order của tất cả khách hàng
 input: không
 output:
 [
@@ -286,9 +294,10 @@ output:
 ]
 
 
+Trang: "Danh sách đơn hàng" trong mục "Đơn hàng" của admin
 http://localhost:8080/admin/allitem/{orderid}
 Phương thức: GET
-MÔ tả: khi admin ấn vào 1 order cụ thể trong trang danh sách đơn hàng thì sẽ hiễn thị ra sản phẩm có trong order đó
+MÔ tả: khi admin ấn vào 1 order cụ thể trong trang "danh sách đơn hàng" thì sẽ hiễn thị ra sản phẩm có trong order đó
 input: orderid
 output:
 {
@@ -321,9 +330,10 @@ output:
 }
 
 
+Trang: "Danh sách sản phẩm" trong mục "Sản phẩm" của admin
 http://localhost:8080/admin/listproduct
 Phương thức: GET
-Mô tả: lấy doanh sách sản phẩm cho admin
+Mô tả: Trả về danh sách sản phẩm
 ( lấy hết trường, có gì mn dùng trường nào thì gọi ra, nhác lọc quá, sợ sau này dùng tiếp thì tạo mới dở lắm:))
 input: không
 output:
@@ -479,6 +489,7 @@ output:
     "status": "in_stock"
     }
 ]
+
 
 
 Trang: "Khách hàng" Admin
