@@ -481,4 +481,52 @@ output:
 ]
 
 
+Trang: "Khách hàng" Admin
+http://localhost:8080/admin/listcustomer
+Phướng thức: GET
+Mô tả: lấy danh sách customer ở trong trang "Khách Hàng" của admin
+input: không
+output:
+[
+    {
+        "customerID": 1,
+        "fullName": "Nguyễn Văn A",
+        "email": "nguyenvana@gmail.com",
+        "phoneNumber": "0912345678",
+        "orderCount": 1,
+        "totalBuy": 1500000.0
+    },
+    {
+        "customerID": 3,
+        "fullName": "Lê Minh C",
+        "email": "leminhc@gmail.com",
+        "phoneNumber": "0901234567",
+        "orderCount": 2,
+        "totalBuy": 3400000.0
+    },
+    {
+        "customerID": 5,
+        "fullName": "Bùi Hồng E",
+        "email": "buihonge@gmail.com",
+        "phoneNumber": "0923456789",
+        "orderCount": 1,
+        "totalBuy": 1500000.0
+    },
+    {
+        "customerID": 7,
+        "fullName": "Đoàn Thế G",
+        "email": "doanthg@gmail.com",
+        "phoneNumber": "0912345670",
+        "orderCount": 1,
+        "totalBuy": 3000000.0
+    },
+    {
+        "customerID": 9,
+        "fullName": "Hoàng Duy I",
+        "email": "hoangduyi@gmail.com",
+        "phoneNumber": "0956789012",
+        "orderCount": 1,
+        "totalBuy": 1800000.0
+    }
+]
 

@@ -1,7 +1,7 @@
 package com.doan.cnpm.dto.response;
 
-import com.doan.cnpm.entity.ProductImage;
-import jakarta.persistence.*;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
