@@ -40,7 +40,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 //   danh sách đơn hàng cho admin
     @Query(value = "select o.orderid, o.date, concat(c.first_name, ' ',c.last_name), o.status, o.total_price \n" +
             "from orders o left join customer c on o.customerid = c.customerid\n" +
-            "order by o.status desc;" , nativeQuery = true)
+            "order by o.date desc;" , nativeQuery = true)
     List<Object[]> listOrdersForAdmin();
 
 //    danh sách sản phẩm trong order đó,(tìm theo orderid)

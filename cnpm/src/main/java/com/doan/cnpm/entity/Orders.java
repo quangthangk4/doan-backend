@@ -31,12 +31,12 @@ public class Orders {
 
     private String shippingAddress;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "customerID", referencedColumnName = "customerID")
     private Customer customer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @JoinColumn(name = "employeeID", referencedColumnName = "employeeID")
     private Employee employee;

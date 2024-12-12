@@ -34,12 +34,4 @@ public class ProductResponseDTO {
 
     @Enumerated(EnumType.STRING)
     private Product.Status status;
-
-    public enum Gender {
-        man, woman, other
-    }
-
-    public enum Status {
-        in_stock, out_of_stock
-    }
 }

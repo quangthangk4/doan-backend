@@ -107,7 +107,7 @@ output: [
 
 
 Trang: "Thông tin sản phẩm" của user
-http://localhost:8080/product/detail/${productID}
+http://localhost:8080/product/detail/{productID}
 Phương thức: Get
 Mô tả: lấy thông tin sản phẩm cụ thể khi click vào 1 sản phẩm
 input: productID
@@ -242,55 +242,7 @@ output:
     "status": "pending",
     "total_price": 3500000.0
     },
-    {
-    "orderid": 10,
-    "date": "2024-12-10",
-    "full_name": "Lý Vân J",
-    "status": "pending",
-    "total_price": 2200000.0
-    },
-    {
-    "orderid": 14,
-    "date": "2024-12-11",
-    "full_name": "Nguyễn Văn A",
-    "status": "pending",
-    "total_price": 3900000.0
-    },
-    {
-    "orderid": 1,
-    "date": "2024-12-01",
-    "full_name": "Nguyễn Văn A",
-    "status": "completed",
-    "total_price": 1500000.0
-    },
-    {
-    "orderid": 3,
-    "date": "2024-12-11",
-    "full_name": "Lê Minh C",
-    "status": "completed",
-    "total_price": 2000000.0
-    },
-    {
-    "orderid": 5,
-    "date": "2024-12-11",
-    "full_name": "Bùi Hồng E",
-    "status": "completed",
-    "total_price": 1500000.0
-    },
-    {
-    "orderid": 7,
-    "date": "2024-12-07",
-    "full_name": "Đoàn Thế G",
-    "status": "completed",
-    "total_price": 3000000.0
-    },
-    {
-    "orderid": 9,
-    "date": "2024-12-09",
-    "full_name": "Hoàng Duy I",
-    "status": "completed",
-    "total_price": 1800000.0
-    }
+    ...
 ]
 
 
@@ -398,96 +350,7 @@ output:
     "gender": "woman",
     "status": "in_stock"
     },
-    {
-    "productID": 105,
-    "name": "Balo học sinh",
-    "description": "Balo chất liệu vải bền, thiết kế ngộ nghĩnh",
-    "material": "Vải",
-    "brand": "Vans",
-    "quantitySold": 150,
-    "type": "Phụ kiện",
-    "quantityImport": 200,
-    "priceImport": 200000.0,
-    "priceSelling": 350000.0,
-    "quantityStock": 60,
-    "gender": "other",
-    "status": "in_stock"
-    },
-    {
-    "productID": 106,
-    "name": "Kính râm",
-    "description": "Kính râm chống UV, bảo vệ mắt hiệu quả",
-    "material": "Nhựa",
-    "brand": "Ray-Ban",
-    "quantitySold": 60,
-    "type": "Phụ kiện",
-    "quantityImport": 120,
-    "priceImport": 400000.0,
-    "priceSelling": 550000.0,
-    "quantityStock": 80,
-    "gender": "other",
-    "status": "in_stock"
-    },
-    {
-    "productID": 107,
-    "name": "Áo khoác",
-    "description": "Áo khoác dày dặn, giữ ấm tốt",
-    "material": "Vải dạ",
-    "brand": "Uniqlo",
-    "quantitySold": 70,
-    "type": "Thời trang",
-    "quantityImport": 140,
-    "priceImport": 600000.0,
-    "priceSelling": 800000.0,
-    "quantityStock": 200,
-    "gender": "man",
-    "status": "in_stock"
-    },
-    {
-    "productID": 108,
-    "name": "Quần jean nữ",
-    "description": "Quần jean thiết kế hiện đại, phù hợp cho mùa hè",
-    "material": "Jean",
-    "brand": "Levi's",
-    "quantitySold": 90,
-    "type": "Thời trang",
-    "quantityImport": 150,
-    "priceImport": 500000.0,
-    "priceSelling": 650000.0,
-    "quantityStock": 50,
-    "gender": "woman",
-    "status": "in_stock"
-    },
-    {
-    "productID": 109,
-    "name": "Áo thun nam",
-    "description": "Áo thun cotton mềm mại, dễ chịu",
-    "material": "Cotton",
-    "brand": "Zara",
-    "quantitySold": 120,
-    "type": "Thời trang",
-    "quantityImport": 180,
-    "priceImport": 200000.0,
-    "priceSelling": 300000.0,
-    "quantityStock": 150,
-    "gender": "man",
-    "status": "in_stock"
-    },
-    {
-    "productID": 110,
-    "name": "Váy liền nữ",
-    "description": "Váy liền thân, thiết kế thanh lịch",
-    "material": "Vải lụa",
-    "brand": "Gucci",
-    "quantitySold": 50,
-    "type": "Thời trang",
-    "quantityImport": 70,
-    "priceImport": 800000.0,
-    "priceSelling": 1200000.0,
-    "quantityStock": 90,
-    "gender": "woman",
-    "status": "in_stock"
-    }
+    ...
 ]
 
 
@@ -541,3 +404,34 @@ output:
     }
 ]
 
+
+
+Trang: "Chi tiết khách hàng" trong mục "Khách hàng" của admin
+http://localhost:8080/admin/detailcustomer/{customerID}
+Mô tả:Trả về dữ liệu của 1 khách hàng khi click vào 1 khách hàng trong danh sách khách hàng trong Trang "Khách hàng"
+input: customerID
+output:
+{
+    "customerID": 1,
+    "fullName": "Nguyễn Văn A",
+    "dateOfBirth": "1990-05-15",
+    "gender": "man",
+    "phoneNumber": "0912345678",
+    "address": "Hàng Bài Hoàn Kiếm Hà Nội",
+    "email": "nguyenvana@gmail.com",
+    "totalBuy": 3900000.0,
+    "order": [
+        {
+        "orderID": 14,
+        "total_price": 3900000.0,
+        "date": "2024-12-11",
+        "status": "pending"
+        },
+        {
+        "orderID": 1,
+        "total_price": 1500000.0,
+        "date": "2024-12-01",
+        "status": "completed"
+        }
+    ]
+}
