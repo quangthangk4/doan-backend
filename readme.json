@@ -211,38 +211,52 @@ Trang: "Danh sách đơn hàng" trong mục "Đơn Hàng" của admin
 http://localhost:8080/admin/allorder
 Phương thức: GET
 Mô tả: Trả về toàn bộ order của tất cả khách hàng
+Lưu ý: trạng thái pending nghĩa là đang trong giỏ hàng, còn completed là ấn vào mua rồi
 input: không
 output:
 [
     {
-    "orderid": 2,
-    "date": "2024-12-02",
-    "full_name": "Trần Thị B",
-    "status": "pending",
-    "total_price": 1200000.0
+    "orderid": 15,
+    "date": "2024-12-12",
+    "full_name": "Lê Minh C",
+    "status": "completed",
+    "total_price": 1400000.0
     },
     {
-    "orderid": 4,
-    "date": "2024-12-04",
-    "full_name": "Phạm Thanh D",
-    "status": "pending",
+    "orderid": 3,
+    "date": "2024-12-11",
+    "full_name": "Lê Minh C",
+    "status": "completed",
+    "total_price": 2000000.0
+    },
+    {
+    "orderid": 5,
+    "date": "2024-12-11",
+    "full_name": "Bùi Hồng E",
+    "status": "completed",
+    "total_price": 1500000.0
+    },
+    {
+    "orderid": 9,
+    "date": "2024-12-09",
+    "full_name": "Hoàng Duy I",
+    "status": "completed",
     "total_price": 1800000.0
     },
     {
-    "orderid": 6,
-    "date": "2024-12-06",
-    "full_name": "Vũ Mai F",
-    "status": "pending",
-    "total_price": 2500000.0
+    "orderid": 7,
+    "date": "2024-12-07",
+    "full_name": "Đoàn Thế G",
+    "status": "completed",
+    "total_price": 3000000.0
     },
     {
-    "orderid": 8,
-    "date": "2024-12-08",
-    "full_name": "Nguyễn Hữu H",
-    "status": "pending",
-    "total_price": 3500000.0
-    },
-    ...
+    "orderid": 1,
+    "date": "2024-12-01",
+    "full_name": "Nguyễn Văn A",
+    "status": "completed",
+    "total_price": 1500000.0
+    }
 ]
 
 
@@ -363,44 +377,49 @@ input: không
 output:
 [
     {
-        "customerID": 1,
-        "fullName": "Nguyễn Văn A",
-        "email": "nguyenvana@gmail.com",
-        "phoneNumber": "0912345678",
-        "orderCount": 1,
-        "totalBuy": 1500000.0
+    "customerID": 1,
+    "fullName": "Nguyễn Văn A",
+    "email": "nguyenvana@gmail.com",
+    "phoneNumber": "0912345678",
+    "orderCount": 1,
+    "totalBuy": 2900000.0,
+    "orderID": 1
     },
     {
-        "customerID": 3,
-        "fullName": "Lê Minh C",
-        "email": "leminhc@gmail.com",
-        "phoneNumber": "0901234567",
-        "orderCount": 2,
-        "totalBuy": 3400000.0
+    "customerID": 3,
+    "fullName": "Lê Minh C",
+    "email": "leminhc@gmail.com",
+    "phoneNumber": "0901234567",
+    "orderCount": 2,
+    "totalBuy": 3500000.0,
+    "orderID": 15
     },
     {
-        "customerID": 5,
-        "fullName": "Bùi Hồng E",
-        "email": "buihonge@gmail.com",
-        "phoneNumber": "0923456789",
-        "orderCount": 1,
-        "totalBuy": 1500000.0
+    "customerID": 5,
+    "fullName": "Bùi Hồng E",
+    "email": "buihonge@gmail.com",
+    "phoneNumber": "0923456789",
+    "orderCount": 1,
+    "totalBuy": 350000.0,
+    "orderID": 5
     },
     {
-        "customerID": 7,
-        "fullName": "Đoàn Thế G",
-        "email": "doanthg@gmail.com",
-        "phoneNumber": "0912345670",
-        "orderCount": 1,
-        "totalBuy": 3000000.0
+    "customerID": 7,
+    "fullName": "Đoàn Thế G",
+    "email": "doanthg@gmail.com",
+    "phoneNumber": "0912345670",
+    "orderCount": 1,
+    "totalBuy": 1600000.0,
+    "orderID": 7
     },
     {
-        "customerID": 9,
-        "fullName": "Hoàng Duy I",
-        "email": "hoangduyi@gmail.com",
-        "phoneNumber": "0956789012",
-        "orderCount": 1,
-        "totalBuy": 1800000.0
+    "customerID": 9,
+    "fullName": "Hoàng Duy I",
+    "email": "hoangduyi@gmail.com",
+    "phoneNumber": "0956789012",
+    "orderCount": 1,
+    "totalBuy": 600000.0,
+    "orderID": 9
     }
 ]
 
@@ -435,3 +454,6 @@ output:
         }
     ]
 }
+
+
+

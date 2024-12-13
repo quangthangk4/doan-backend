@@ -39,7 +39,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
 //   danh sách đơn hàng cho admin
     @Query(value = "select o.orderid, o.date, concat(c.first_name, ' ',c.last_name), o.status, o.total_price \n" +
-            "from orders o left join customer c on o.customerid = c.customerid\n" +
+            "from orders o left join customer c on o.customerid = c.customerid\n " +
+            "where o.status = 'completed'" +
             "order by o.date desc;" , nativeQuery = true)
     List<Object[]> listOrdersForAdmin();
 
@@ -52,7 +53,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
             "LEFT JOIN include i ON i.orderid = o.orderid " +
             "LEFT JOIN product p ON p.productid = i.productid " +
             "LEFT JOIN customer c ON c.customerid = o.customerid " +
-            "WHERE o.orderid = :orderid", nativeQuery = true)
+            "WHERE o.orderid = :orderid and o.status = 'completed'", nativeQuery = true)
     List<Object[]> AllProductInOrder(@Param("orderid") Long orderid);
 
 }
