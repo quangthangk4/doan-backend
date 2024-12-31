@@ -32,11 +32,11 @@ public class Customer {
     private String district;
     private String street;
     private String email;
+    private String password;
 
-    @OneToOne
-    @JsonBackReference
-    @JoinColumn(name = "accountID", referencedColumnName = "accountID")
-    private Account account;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 
     @JsonManagedReference
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -45,6 +45,10 @@ public class Customer {
     @JsonManagedReference
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Rating> ratings;
+
+    public enum Role {
+        customer, admin
+    }
 
     public enum Gender {
         man, woman, other

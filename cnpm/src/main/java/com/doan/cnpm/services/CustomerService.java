@@ -1,5 +1,6 @@
 package com.doan.cnpm.services;
 
+import com.doan.cnpm.dto.request.UserCreateDto;
 import com.doan.cnpm.dto.response.CustomerDetailResponseDTO;
 import com.doan.cnpm.dto.response.DetailOrderResponseDTO;
 import com.doan.cnpm.dto.response.ListCustomerResponseDTO;
@@ -7,6 +8,8 @@ import com.doan.cnpm.entity.Customer;
 import com.doan.cnpm.mapper.CustomerMapper;
 import com.doan.cnpm.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +22,23 @@ import java.util.Optional;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
+
+
+    // create customer
+    public UserCreateDto createCustomer(UserCreateDto userCreateDto) {
+        if (customerRepository.existsCustomerByEmail(userCreateDto.getEmail())) {
+            throw new RuntimeException("user đã tồn tại, vui lòng dùng email khác!");
+        }
+
+        Customer customer = customerMapper.toCustomer(userCreateDto);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        customer.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
+        customerRepository.save(customer);
+        return customerMapper.toUserCreateDto(customer);
+    }
+
+    // update password customer
 
 //    danh sách customer cho admin
     public List<ListCustomerResponseDTO> listCustomers() {

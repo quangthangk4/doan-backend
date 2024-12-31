@@ -1,11 +1,5 @@
 package com.doan.cnpm.dto.response;
 
-import com.doan.cnpm.entity.Account;
-import com.doan.cnpm.entity.Customer;
-import com.doan.cnpm.entity.Orders;
-import com.doan.cnpm.entity.Rating;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

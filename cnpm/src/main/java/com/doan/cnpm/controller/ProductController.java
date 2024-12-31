@@ -21,9 +21,7 @@ import java.util.List;
 @RequestMapping("product")
 @RequiredArgsConstructor
 public class ProductController {
-
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @GetMapping("/man")
     public List<AllProductResponse> getProductMan(){

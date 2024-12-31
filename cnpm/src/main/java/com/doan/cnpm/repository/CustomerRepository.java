@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
@@ -30,4 +31,8 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
             "where c.customerid = :customerid and o.status = 'completed' group by c.customerid, o.orderid " +
             "order by o.date desc;", nativeQuery = true)
     List<Object[]> findCustomerDetailById(@Param("customerid") Long customerid);
+
+    boolean existsCustomerByEmail(String email);
+
+    Optional<Customer> findByEmail(String email);
 }
