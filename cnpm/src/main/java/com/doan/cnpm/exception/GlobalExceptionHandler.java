@@ -27,4 +27,12 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(apiResponse);
     }
+
+    @ExceptionHandler(value = NullPointerException.class)
+    ResponseEntity<ApiResponse> handlingAppException(NullPointerException exception) {
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setMessage("Giỏ hàng rỗng");
+
+        return ResponseEntity.badRequest().body(apiResponse);
+    }
 }

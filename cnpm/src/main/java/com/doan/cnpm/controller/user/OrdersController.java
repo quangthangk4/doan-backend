@@ -1,4 +1,4 @@
-package com.doan.cnpm.controller;
+package com.doan.cnpm.controller.user;
 
 import com.doan.cnpm.dto.request.CartResponseDTO;
 import com.doan.cnpm.dto.request.OrdersRequestDTO;
@@ -14,13 +14,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/orders")
+@RequestMapping("/user/orders")
 public class OrdersController {
-    @Autowired
-    private OrdersService ordersService;
-
-    @Autowired
-    private IncludeRepository includeRepository;
+    private final OrdersService ordersService;
+    private final IncludeRepository includeRepository;
 
     @PostMapping("/addtocart")
     public ResponseEntity<String> createOrder(@RequestBody OrdersRequestDTO ordersRequestDTO) {
@@ -37,15 +34,15 @@ public class OrdersController {
         }
     }
 
-    @GetMapping("/cart/{customerID}")
-    public ResponseEntity<List<CartResponseDTO>> getCart(@PathVariable("customerID") Long customerID) {
-        return ResponseEntity.ok(ordersService.ShoppingCart(customerID));
+    @GetMapping("/myCart")
+    public ResponseEntity<List<CartResponseDTO>> getCart() {
+        return ResponseEntity.ok(ordersService.ShoppingCart());
     }
 
-    @PutMapping("/checkout/{customerID}")
-    public ResponseEntity<String> updateCheckOut(@PathVariable("customerID") Long customerID) {
+    @PutMapping("/checkout")
+    public ResponseEntity<String> updateCheckOut() {
         try {
-            ordersService.orderCheckOut(customerID);
+            ordersService.orderCheckOut();
             return ResponseEntity.status(HttpStatus.OK)
                     .body("Thanh Toán thành công, lần sau mua tiếp nha bà:))!");
         } catch (Exception e) {
@@ -54,10 +51,10 @@ public class OrdersController {
         }
     }
 
-    @DeleteMapping("/itemcart/{customerID}/{productID}")
-    public ResponseEntity<String> deleteItemCart(@PathVariable Long customerID, @PathVariable Long productID) {
+    @DeleteMapping("/itemcart/{productID}")
+    public ResponseEntity<String> deleteItemCart(@PathVariable Long productID) {
         try {
-            ordersService.orderRemoveItem(customerID, productID);
+            ordersService.orderRemoveItem(productID);
             return ResponseEntity.status(HttpStatus.OK)
                     .body("Xóa sản phẩm thành công!!");
         } catch (Exception e) {

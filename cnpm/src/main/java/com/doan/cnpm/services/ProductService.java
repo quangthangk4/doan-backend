@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -49,7 +51,10 @@ public class ProductService {
 
     //    Trả về danh sách product ( trả về entity lun, khỏi DTO đi đỡ tạo mệt người)
     public List<ProductResponseDTO> getAllProductsForAdmin() {
-        return productRepository.findAllProduct();
+        return productRepository.findAllProduct()
+                .stream()
+                .sorted(Comparator.comparing(ProductResponseDTO::getProductID).reversed())
+                .collect(Collectors.toList());
     }
 
 }

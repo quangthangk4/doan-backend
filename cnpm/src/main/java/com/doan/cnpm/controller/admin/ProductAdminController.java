@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("admin")
+@RequestMapping("/admin")
 public class ProductAdminController {
     private final ProductService productService;
 
-    @GetMapping("/listproduct")
+    @GetMapping("/listProduct")
     public List<ProductResponseDTO> listProduct() {
         return productService.getAllProductsForAdmin();
     }

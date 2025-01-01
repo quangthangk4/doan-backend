@@ -1,4 +1,4 @@
-package com.doan.cnpm.controller;
+package com.doan.cnpm.controller.global;
 
 import com.doan.cnpm.dto.request.ApiResponse;
 import com.doan.cnpm.dto.request.AuthenticationRequest;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/global/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;

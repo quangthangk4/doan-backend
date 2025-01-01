@@ -13,7 +13,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class OrdersRequestDTO {
-    private Long customerId;
     private Long productId;
     private Long quantity;
     private LocalDate date;

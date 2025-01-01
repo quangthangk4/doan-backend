@@ -17,11 +17,12 @@ public interface OrderMapper {
         }
 
         return CartResponseDTO.builder()
-                .name((String) product[0])
-                .gender(CartResponseDTO.Gender.valueOf((String) product[1]))
-                .price_selling(((Number) product[2]).doubleValue())
-                .quantity(((Number) product[3]).longValue())
-                .image((String) product[4])
+                .productId((Long) product[0])
+                .name((String) product[1])
+                .gender(CartResponseDTO.Gender.valueOf((String) product[2]))
+                .price_selling(((Number) product[3]).doubleValue())
+                .quantity(((Number) product[4]).longValue())
+                .image((String) product[5])
                 .build();
     }
 

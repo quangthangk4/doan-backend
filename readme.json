@@ -1,459 +1,664 @@
-API cho USER
+API
 
+Phần global, không cần đăng nhập cũng vào được
 
-Trang: "Nam" của User
-http://localhost:8080/product/man
-Phương thức: Get
-Mô tả: lấy tất cả danh sách áo quần nam
-input: Không
-output: [
-    {
-        "productID": 101,
-        "name": "Áo sơ mi nam",
-        "priceSelling": 450000.0,
-        "ratingCount": 1,
-        "imageUrl": "http://example.com/images/product1_1.jpg"
-    },
-    {
-        "productID": 103,
-        "name": "Giày thể thao",
-        "priceSelling": 700000.0,
-        "ratingCount": 1,
-        "imageUrl": "http://example.com/images/product3_1.jpg"
-    },
-    {
-        "productID": 107,
-        "name": "Áo khoác",
-        "priceSelling": 800000.0,
-        "ratingCount": 1,
-        "imageUrl": null
-    },
-    {
-        "productID": 109,
-        "name": "Áo thun nam",
-        "priceSelling": 300000.0,
-        "ratingCount": 1,
-        "imageUrl": null
-    }
-]
-
-
-
-Trang: "Nữ" của user
-http://localhost:8080/product/woman
-Phương thức: Get
-Mô tả: lấy tất cả danh sách áo quần nữ
-input: Không
-output: [
-    {
-        "productID": 102,
-        "name": "Đầm nữ",
-        "priceSelling": 500000.0,
-        "ratingCount": 1,
-        "imageUrl": "http://example.com/images/product2_1.jpg"
-    },
-    {
-        "productID": 104,
-        "name": "Túi xách nữ",
-        "priceSelling": 1500000.0,
-        "ratingCount": 1,
-        "imageUrl": "http://example.com/images/product4_1.jpg"
-    },
-    {
-        "productID": 108,
-        "name": "Quần jean nữ",
-        "priceSelling": 650000.0,
-        "ratingCount": 1,
-        "imageUrl": null
-    },
-    {
-        "productID": 110,
-        "name": "Váy liền nữ",
-        "priceSelling": 1200000.0,
-        "ratingCount": 1,
-        "imageUrl": null
-    }
-]
-
-
-Trang: "Hàng mới" của user (hiện tại chưa sắp xếp theo thứ tự ngày-> sửa sau)
-http://localhost:8080/product/all
-Phương thức: Get
-Mô tả: lấy tất cả danh sách áo quần
-input: Không
-output: [
-    {
-        "productID": 101,
-        "name": "Áo sơ mi nam",
-        "priceSelling": 450000.0,
-        "ratingCount": 1,
-        "imageUrl": "http://example.com/images/product1_1.jpg"
-    },
-    {
-        "productID": 102,
-        "name": "Đầm nữ",
-        "priceSelling": 500000.0,
-        "ratingCount": 1,
-        "imageUrl": "http://example.com/images/product2_1.jpg"
-    },
-    {
-        "productID": 103,
-        "name": "Giày thể thao",
-        "priceSelling": 700000.0,
-        "ratingCount": 1,
-        "imageUrl": "http://example.com/images/product3_1.jpg"
-    }....
-]
-
-
-Trang: "Thông tin sản phẩm" của user
-http://localhost:8080/product/detail/{productID}
-Phương thức: Get
-Mô tả: lấy thông tin sản phẩm cụ thể khi click vào 1 sản phẩm
-input: productID
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+Phần Authentication (đăng nhập, đăng kí)
+########################################### 1. Đăng kí ################################################
+http://localhost:8080/global/auth/sign
+Phương thức: POST
+input: {
+    "firstName": "Võ Quang",
+    "lastName": "Thắng",
+    "dateOfBirth": "2004-02-03",
+    "gender": "man",
+    "phoneNumber": "0399728845",
+    "city": "Quảng Bình",
+    "district": "Quảng Ninh",
+    "street": "Hoành Vinh, An Ninh",
+    "email": "thang.vokhmt04k22@hcmut.edu.vn",
+    "password": "123456"
+}
 output: {
-    "productID": 101,
-    "name": "Áo sơ mi nam",
-    "description": "Áo sơ mi cao cấp, chất liệu cotton",
-    "material": "Cotton",
-    "priceSelling": 450000.0,
+    "code": 0,
+    "result": {
+        "customerID": 13,
+        "firstName": "Võ Quang",
+        "lastName": "Thắng",
+        "dateOfBirth": "2004-02-03",
+        "gender": "man",
+        "phoneNumber": "0399728845",
+        "city": "Quảng Bình",
+        "district": "Quảng Ninh",
+        "street": "Hoành Vinh, An Ninh",
+        "email": "thang.vokhmt04k22@hcmut.edu.vn",
+        "roles": [
+            "CUSTOMER"
+        ]
+    }
+}
+Mô tả: nhập vào form rồi ấn đăng kí ( chú ý định dạng Date nhập vào)
+
+
+########################################### 2. Đăng nhập ################################################
+http://localhost:8080/global/auth/login
+Phương thức: POST
+input: {
+    "email": "thang.vokhmt04k22@hcmut.edu.vn",
+    "password": "123456"
+}
+output:{
+    "code": 200,
+    "result": {
+        "token": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAvIiwiY3VzdG9tZXJJZCI6MSwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzM1NzI3NTIwLCJpYXQiOjE3MzU3MjM5MjAsInNjb3BlIjoiQ1VTVE9NRVIgQURNSU4ifQ.ar8e2uQIW5BnEzoHiRfETt3czRIx9fJ4p9fVOeSGrv-CiZCYhtiOu4ty9sYsgFr_jTDpkyR9QzV-1nLm1YIXWw",
+        "authenticated": true
+    }
+}
+
+Mô tả: sau khi đăng nhập thành công sẽ trả về 1 token, ta lưu token ở localStorage trong reactjs
+để sau này muốn gọi api ta chỉ cần truyền cái header chứa token này là được
+
+
+########################################### 3. Danh sách sản phẩm nam ###########################################
+http://localhost:8080/global/product/man
+Phương thức: GET
+input: không
+output: [
+    {
+        "productID": 1,
+        "name": "Áo Thun Nam",
+        "priceSelling": 200000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product1-2.jpg"
+    },
+    {
+        "productID": 3,
+        "name": "Ví Nam",
+        "priceSelling": 300000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product3-2.jpg"
+    },
+    {
+        "productID": 5,
+        "name": "Tất Nam",
+        "priceSelling": 160000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product5-2.jpg"
+    }
+]
+
+Mô tả: trả về tất cả sản phẩm trong trang "Man" của user, k cần đăng nhập cũng có thể xem được
+        k cần truyền header chứa token cũng được
+
+
+
+########################################### 4. Danh sách sản phẩm nữ ###########################################
+http://localhost:8080/global/product/woman
+Phương thức: GET
+input: không
+output: [
+    {
+        "productID": 2,
+        "name": "Áo Thun Nữ",
+        "priceSelling": 250000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product2-2.jpg"
+    },
+    {
+        "productID": 4,
+        "name": "Balo Du Lịch",
+        "priceSelling": 400000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product4-2.jpg"
+    }
+]
+
+Mô tả: trả về tất cả sản phẩm trong trang "Nữ" của user, k cần đăng nhập cũng có thể xem được
+k cần truyền header chứa token cũng được
+
+
+########################################### 5.Danh sách sản phẩm(tất cả) ###########################################
+http://localhost:8080/global/product/all
+Phương thức: GET
+input: không
+output: [
+    {
+    "productID": 1,
+    "name": "Áo Thun Nam",
+    "priceSelling": 200000.0,
+    "ratingCount": 2,
+    "imageUrl": "https://example.com/images/product1-2.jpg"
+    },
+    {
+    "productID": 2,
+    "name": "Áo Thun Nữ",
+    "priceSelling": 250000.0,
+    "ratingCount": 2,
+    "imageUrl": "https://example.com/images/product2-2.jpg"
+    },
+    {
+    "productID": 3,
+    "name": "Ví Nam",
+    "priceSelling": 300000.0,
+    "ratingCount": 2,
+    "imageUrl": "https://example.com/images/product3-2.jpg"
+    },
+    {
+    "productID": 4,
+    "name": "Balo Du Lịch",
+    "priceSelling": 400000.0,
+    "ratingCount": 2,
+    "imageUrl": "https://example.com/images/product4-2.jpg"
+    },
+    {
+    "productID": 5,
+    "name": "Tất Nam",
+    "priceSelling": 160000.0,
+    "ratingCount": 2,
+    "imageUrl": "https://example.com/images/product5-2.jpg"
+    }
+]
+
+Mô tả: trả về tất cả sản phẩm trong trang "Thời trang" của user, k cần đăng nhập cũng có thể xem được
+k cần truyền header chứa token cũng được
+
+
+########################################### 6.Chi tiết sản phẩm ########################################
+http://localhost:8080/global/product/detail/{productID}
+Phương thức: GET
+input: productID (ví dụ http://localhost:8080/global/product/detail/1)
+output:{
+    "productID": 1,
+    "name": "Áo Thun Nam",
+    "description": "Sản phẩm chất lượng cao",
+    "material": "Vải Cotton",
+    "priceSelling": 200000.0,
     "status": "in_stock",
-    "ratingCount": 1,
-    "commentCount": 1,
+    "ratingCount": 2,
+    "commentCount": 2,
     "images": [
-        "http://example.com/images/product1_1.jpg",
-        "http://example.com/images/product1_2.jpg"
+        "https://example.com/images/product1-2.jpg",
+        "https://example.com/images/product1.jpg"
     ]
 }
 
+Mô tả: trả về chi tiết sản phẩm trong trang "Detail Product" của user, k cần đăng nhập cũng có thể xem được
+k cần truyền header chứa token cũng được
 
-Trang: "Thông tin sản phẩm" của user
-http://localhost:8080/orders/addtocart
-phương thức: POST
-mô tả: thêm sản phẩm vào giỏ hàng (khi ấn vào ADD TO CART trong trang "Thông tin sản phẩm")
-input: {
-    "customerId": 1,
-    "productId": 103,
-    "quantity": 2,
-    "date": "2024-12-11"
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+        Phần 2: user, cần đăng nhập để gọi được api dưới, cần truyền header chứa token lên server
+####################################### 7.Thêm sản phẩm vào giỏ hàng ########################################
+http://localhost:8080/user/orders/addtocart
+Phương thức: POST
+input:{
+    "productId": 1,
+    "quantity": 5,
+    "date": "2025-01-01"
 }
 output: Order has been successfully added!
-các trường hợp output còn lại, nghĩa là truyền biến vào sai, đảm bảo truyền đủ biến
+
+Mô tả: trả về thông báo nếu thêm thành công trong trong "Detail Product" của user
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
 
 
 
 
-Trang: "Shopping Cart" của user (Giỏ hàng)
-http://localhost:8080/orders/cart/{customerID}
+####################################### 8.Xem giỏ hàng ########################################
+http://localhost:8080/user/orders/myCart
 Phương thức: GET
-mô tả: hiễn thị sản phẩm trong giỏ hàng
-input: customerID
+input: không
 output: [
     {
-        "name": "Đầm nữ",
-        "gender": "woman",
-        "price_selling": 3900000.0,
+        "productId": 1,
+        "name": "Áo Thun Nam",
+        "gender": "man",
+        "price_selling": 1500000.0, (này là tổng tiền của cả giỏ hàng, k phải chỉ riêng cái này)
         "quantity": 5,
-        "image": "http://example.com/images/product2_1.jpg"
+        "image": "https://example.com/images/product1-2.jpg"
     },
     {
-        "name": "Giày thể thao",
-        "gender": "man",
-        "price_selling": 3900000.0,
+        "productId": 2,
+        "name": "Áo Thun Nữ",
+        "gender": "woman",
+        "price_selling": 1500000.0,
         "quantity": 2,
-        "image": "http://example.com/images/product3_1.jpg"
+        "image": "https://example.com/images/product2-2.jpg"
     }
 ]
 
+Mô tả: trả về danh sách sản phẩm trong giỏ hàng "Cart" của user
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
 
 
-
-Trang: "Shopping Cart" của user (Giỏ hàng)
-http://localhost:8080/orders/checkout/{customerID}
+####################################### 9.Thanh toán giỏ hàng ########################################
+http://localhost:8080/user/orders/checkout
 Phương thức: PUT
-Mô tả: Khi ấn CHECKOUT trong trang "Shopping Cart",
-    sẽ thanh toán và sản phẩm không hiển thị ở bên giỏ hàng nữa(nên tạo popup thanh toán thành công)
-input: customerID
+input: không
 output: Thanh Toán thành công, lần sau mua tiếp nha bà:))!
-các output khác nghĩa là lỗi, kiểm tra lại customerID nhập vào
+
+Mô tả: thanh toán giỏ hàng, sau đó sản phẩm trong giỏ hàng biến mất
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
+(test rồi, giờ k dám test lại, thanh toán xong phải thêm lại giở hàng mệt lắm <3)
 
 
 
-
-
-Trang: "Shopping Cart" của user (Giỏ hàng)
-http://localhost:8080/orders/{customerID}/{productID}
+####################################### 10.Xóa sản phẩm ra khỏi giỏ hàng ########################################
+http://localhost:8080/user/orders/itemcart/{productID}
 Phương thức: DELETE
-Mô tả: khi ấn nút X ở cạnh sản phẩm, sản phẩm sẽ được xóa khỏi giỏ hàng
-input: CustomerID, productID
+input: productID (ví dụ http://localhost:8080/user/orders/itemcart/1))
 output: Xóa sản phẩm thành công!!
-các output khác nghĩa là truyền biến vào sai
 
-//        ==============================================================================================
-//        ==============================================================================================
-        ADMIN
+Mô tả: xóa sản phẩm đó ra khỏi giỏ hàng khi click, truyền vào productID của sản phẩm đó
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
 
-Trang: "Tổng quan" của Admin
+
+####################################### 11.Lịch sử mua hàng của user ########################################
+http://localhost:8080/user/history
+Phương thức: GET
+input: không
+output: {
+    "code": 200,
+    "result": [
+        {
+            "name": "Áo Thun Nữ",
+            "brand": "Hàng Việt",
+            "material": "Vải Thun",
+            "price_selling": 250000.0,
+            "product_id": 2,
+            "quantity": 2,
+            "total_price": 500000.0,
+            "image": "https://example.com/images/product2-2.jpg"
+        },
+        {
+            "name": "Áo Thun Nam",
+            "brand": "Hàng Việt",
+            "material": "Vải Cotton",
+            "price_selling": 200000.0,
+            "product_id": 1,
+            "quantity": 2,
+            "total_price": 400000.0,
+            "image": "https://example.com/images/product1-2.jpg"
+        },
+        {
+            "name": "Balo Du Lịch",
+            "brand": "Hàng Việt",
+            "material": "Nhựa Cao Cấp",
+            "price_selling": 400000.0,
+            "product_id": 4,
+            "quantity": 1,
+            "total_price": 400000.0,
+            "image": "https://example.com/images/product4-2.jpg"
+        }
+    ]
+}
+
+Mô tả: Lịch sử mua hàng của user khi ấn vào Lịch sử
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Phần 3: Admin, các tính năng dưới đây sử dụng cho admin
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+####################################### 12.Doanh thu trong ngày trang DashBoard ########################################
 http://localhost:8080/admin/totalSalesToday
 Phương thức: GET
-Mô tả: trả về dữ liệu KẾT QUẢ KINH DOANH TRONG NGÀY trong trang "Tổng quan"
 input: không
-output:
-{
-    "total": 3500000.0,
-    "customerCount": 2,
-    "orderCount": 2
+output: {
+"total": 750000.0,
+"customerCount": 1,
+"orderCount": 1
 }
 
+Mô tả: Trả về số liệu doanh thu trong ngày trong trong DashBoard admin
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
 
 
-Trang: "Danh sách đơn hàng" trong mục "Đơn Hàng" của admin
-http://localhost:8080/admin/allorder
+
+####################################### 13.Xem thông tin cá nhân ########################################
+http://localhost:8080/user/allorder
 Phương thức: GET
-Mô tả: Trả về toàn bộ order của tất cả khách hàng
-Lưu ý: trạng thái pending nghĩa là đang trong giỏ hàng, còn completed là ấn vào mua rồi
 input: không
-output:
-[
+output: [
     {
-    "orderid": 15,
-    "date": "2024-12-12",
-    "full_name": "Lê Minh C",
-    "status": "completed",
-    "total_price": 1400000.0
+        "orderid": 9,
+        "date": "2025-01-09",
+        "full_name": "Bùi Thị H",
+        "status": "completed",
+        "total_price": 1200000.0
     },
     {
-    "orderid": 3,
-    "date": "2024-12-11",
-    "full_name": "Lê Minh C",
-    "status": "completed",
-    "total_price": 2000000.0
+        "orderid": 6,
+        "date": "2025-01-06",
+        "full_name": "Hoàng Văn E",
+        "status": "completed",
+        "total_price": 800000.0
     },
     {
-    "orderid": 5,
-    "date": "2024-12-11",
-    "full_name": "Bùi Hồng E",
-    "status": "completed",
-    "total_price": 1500000.0
+        "orderid": 4,
+        "date": "2025-01-04",
+        "full_name": "Lê Văn C",
+        "status": "completed",
+        "total_price": 2000000.0
     },
     {
-    "orderid": 9,
-    "date": "2024-12-09",
-    "full_name": "Hoàng Duy I",
-    "status": "completed",
-    "total_price": 1800000.0
+        "orderid": 2,
+        "date": "2025-01-02",
+        "full_name": "Nguyễn Văn A",
+        "status": "completed",
+        "total_price": 750000.0
     },
     {
-    "orderid": 7,
-    "date": "2024-12-07",
-    "full_name": "Đoàn Thế G",
-    "status": "completed",
-    "total_price": 3000000.0
+        "orderid": 11,
+        "date": "2025-01-01",
+        "full_name": "Võ Quang Thắng",
+        "status": "completed",
+        "total_price": 500000.0
     },
     {
-    "orderid": 1,
-    "date": "2024-12-01",
-    "full_name": "Nguyễn Văn A",
-    "status": "completed",
-    "total_price": 1500000.0
+        "orderid": 12,
+        "date": "2025-01-01",
+        "full_name": "Võ Quang Thắng",
+        "status": "completed",
+        "total_price": 800000.0
     }
 ]
 
+Mô tả: Danh sách các đơn hàng đã mua trong trang Admin
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
 
-Trang: "Danh sách đơn hàng" trong mục "Đơn hàng" của admin
+
+####################################### 14.Xem chi tiết sản phẩm trong order của khách hàng ########################################
 http://localhost:8080/admin/allitem/{orderid}
 Phương thức: GET
-MÔ tả: khi admin ấn vào 1 order cụ thể trong trang "danh sách đơn hàng" thì sẽ hiễn thị ra sản phẩm có trong order đó
-input: orderid
-output:
-{
-    "full_name": "Nguyễn Văn A",
-    "phone_number": "0912345678",
-    "email": "nguyenvana@gmail.com",
-    "shipping_address": "Số 10, Đường Lê Lai, Hà Nội",
+input: orderid (ví dụ : http://localhost:8080/admin/allitem/12)
+output: {
+    "full_name": "Võ Quang Thắng",
+    "phone_number": "0399728845",
+    "email": "thang.vokhmt04k22@hcmut.edu.vn",
+    "shipping_address": null,
     "products": [
         {
-        "name": "Áo sơ mi nam",
-        "brand": "Nike",
-        "material": "Cotton",
-        "price_selling": 450000.0,
-        "status": "completed",
-        "quantity": 2,
-        "total_price": 900000.0,
-        "image": "http://example.com/images/product1_1.jpg"
+            "name": "Áo Thun Nam",
+            "brand": "Hàng Việt",
+            "material": "Vải Cotton",
+            "price_selling": 200000.0,
+            "status": "completed",
+            "quantity": 2,
+            "total_price": 400000.0,
+            "image": "https://example.com/images/product1-2.jpg"
         },
         {
-        "name": "Đầm nữ",
-        "brand": "Adidas",
-        "material": "Lụa",
-        "price_selling": 500000.0,
-        "status": "completed",
-        "quantity": 4,
-        "total_price": 2000000.0,
-        "image": "http://example.com/images/product2_1.jpg"
+            "name": "Balo Du Lịch",
+            "brand": "Hàng Việt",
+            "material": "Nhựa Cao Cấp",
+            "price_selling": 400000.0,
+            "status": "completed",
+            "quantity": 1,
+            "total_price": 400000.0,
+            "image": "https://example.com/images/product4-2.jpg"
         }
     ]
 }
 
+Mô tả: Trả về chi tiết đơn hàng, các sản phẩm trong đơn hàng (order) đó
+        xuất hiện khi click vào sản phẩm ở api 12 ở trên
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
 
-Trang: "Danh sách sản phẩm" trong mục "Sản phẩm" của admin
-http://localhost:8080/admin/listproduct
+
+####################################### 15.Xem danh sách sản phẩm hiện có trong shop ########################################
+http://localhost:8080/admin/listProduct
 Phương thức: GET
-Mô tả: Trả về danh sách sản phẩm
-( lấy hết trường, có gì mn dùng trường nào thì gọi ra, nhác lọc quá, sợ sau này dùng tiếp thì tạo mới dở lắm:))
 input: không
-output:
-[
+output: [
     {
-    "productID": 101,
-    "name": "Áo sơ mi nam",
-    "description": "Áo sơ mi cao cấp, chất liệu cotton",
-    "material": "Cotton",
-    "brand": "Nike",
-    "quantitySold": 50,
-    "type": "Thời trang",
-    "quantityImport": 100,
-    "priceImport": 300000.0,
-    "priceSelling": 450000.0,
-    "quantityStock": 100,
-    "gender": "man",
-    "status": "in_stock"
+        "productID": 1,
+        "name": "Áo Thun Nam",
+        "description": "Sản phẩm chất lượng cao",
+        "material": "Vải Cotton",
+        "brand": "Hàng Việt",
+        "quantitySold": 50,
+        "type": "Thời Trang",
+        "quantityImport": 100,
+        "priceImport": 100000.0,
+        "priceSelling": 200000.0,
+        "quantityStock": 50,
+        "gender": "man",
+        "status": "in_stock"
     },
     {
-    "productID": 102,
-    "name": "Đầm nữ",
-    "description": "Đầm thiết kế thời trang, phù hợp cho mọi dịp",
-    "material": "Lụa",
-    "brand": "Adidas",
-    "quantitySold": 40,
-    "type": "Thời trang",
-    "quantityImport": 80,
-    "priceImport": 350000.0,
-    "priceSelling": 500000.0,
-    "quantityStock": 150,
-    "gender": "woman",
-    "status": "in_stock"
+        "productID": 2,
+        "name": "Áo Thun Nữ",
+        "description": "Thời trang trẻ trung",
+        "material": "Vải Thun",
+        "brand": "Hàng Việt",
+        "quantitySold": 70,
+        "type": "Thời Trang",
+        "quantityImport": 120,
+        "priceImport": 120000.0,
+        "priceSelling": 250000.0,
+        "quantityStock": 50,
+        "gender": "woman",
+        "status": "in_stock"
     },
     {
-    "productID": 103,
-    "name": "Giày thể thao",
-    "description": "Giày thể thao, chất liệu thoáng khí",
-    "material": "Da",
-    "brand": "Puma",
-    "quantitySold": 100,
-    "type": "Giày dép",
-    "quantityImport": 200,
-    "priceImport": 500000.0,
-    "priceSelling": 700000.0,
-    "quantityStock": 50,
-    "gender": "man",
-    "status": "in_stock"
+        "productID": 3,
+        "name": "Ví Nam",
+        "description": "Hàng cao cấp",
+        "material": "Da Thật",
+        "brand": "Hàng Việt",
+        "quantitySold": 100,
+        "type": "Phụ Kiện",
+        "quantityImport": 150,
+        "priceImport": 150000.0,
+        "priceSelling": 300000.0,
+        "quantityStock": 50,
+        "gender": "man",
+        "status": "out_of_stock"
     },
     {
-    "productID": 104,
-    "name": "Túi xách nữ",
-    "description": "Túi xách da thật, sang trọng và bền bỉ",
-    "material": "Da",
-    "brand": "Chanel",
-    "quantitySold": 30,
-    "type": "Phụ kiện",
-    "quantityImport": 50,
-    "priceImport": 1000000.0,
-    "priceSelling": 1500000.0,
-    "quantityStock": 70,
-    "gender": "woman",
-    "status": "in_stock"
-    },
-    ...
-]
-
-
-
-Trang: "Khách hàng" Admin
-http://localhost:8080/admin/listcustomer
-Phướng thức: GET
-Mô tả: lấy danh sách customer ở trong trang "Khách Hàng" của admin
-input: không
-output:
-[
-    {
-    "customerID": 1,
-    "fullName": "Nguyễn Văn A",
-    "email": "nguyenvana@gmail.com",
-    "phoneNumber": "0912345678",
-    "orderCount": 1,
-    "totalBuy": 2900000.0,
-    "orderID": 1
+        "productID": 4,
+        "name": "Balo Du Lịch",
+        "description": "Thiết kế hiện đại",
+        "material": "Nhựa Cao Cấp",
+        "brand": "Hàng Việt",
+        "quantitySold": 150,
+        "type": "Phụ Kiện",
+        "quantityImport": 200,
+        "priceImport": 200000.0,
+        "priceSelling": 400000.0,
+        "quantityStock": 50,
+        "gender": "woman",
+        "status": "in_stock"
     },
     {
-    "customerID": 3,
-    "fullName": "Lê Minh C",
-    "email": "leminhc@gmail.com",
-    "phoneNumber": "0901234567",
-    "orderCount": 2,
-    "totalBuy": 3500000.0,
-    "orderID": 15
-    },
-    {
-    "customerID": 5,
-    "fullName": "Bùi Hồng E",
-    "email": "buihonge@gmail.com",
-    "phoneNumber": "0923456789",
-    "orderCount": 1,
-    "totalBuy": 350000.0,
-    "orderID": 5
-    },
-    {
-    "customerID": 7,
-    "fullName": "Đoàn Thế G",
-    "email": "doanthg@gmail.com",
-    "phoneNumber": "0912345670",
-    "orderCount": 1,
-    "totalBuy": 1600000.0,
-    "orderID": 7
-    },
-    {
-    "customerID": 9,
-    "fullName": "Hoàng Duy I",
-    "email": "hoangduyi@gmail.com",
-    "phoneNumber": "0956789012",
-    "orderCount": 1,
-    "totalBuy": 600000.0,
-    "orderID": 9
+        "productID": 5,
+        "name": "Tất Nam",
+        "description": "Thoải mái, dễ sử dụng",
+        "material": "Vải Polyester",
+        "brand": "Hàng Việt",
+        "quantitySold": 40,
+        "type": "Phụ Kiện",
+        "quantityImport": 80,
+        "priceImport": 80000.0,
+        "priceSelling": 160000.0,
+        "quantityStock": 40,
+        "gender": "man",
+        "status": "in_stock"
     }
 ]
 
+Mô tả: Trả về Danh sách sản phẩm hiện có trong shop của mình
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
 
 
-Trang: "Chi tiết khách hàng" trong mục "Khách hàng" của admin
-http://localhost:8080/admin/detailcustomer/{customerID}
-Mô tả:Trả về dữ liệu của 1 khách hàng khi click vào 1 khách hàng trong danh sách khách hàng trong Trang "Khách hàng"
-input: customerID
-output:
-{
-    "customerID": 1,
-    "fullName": "Nguyễn Văn A",
-    "dateOfBirth": "1990-05-15",
+
+####################################### 16.Xem danh sách Tài khoản(Customer) đang có ########################################
+http://localhost:8080/admin/listCustomer
+Phương thức: GET
+input: không
+output: [
+    {
+        "customerID": 1,
+        "fullName": null,
+        "email": "admin@gmail.com",
+        "phoneNumber": null,
+        "orderCount": 0,
+        "totalBuy": null,
+        "orderID": null
+    },
+    {
+        "customerID": 2,
+        "fullName": "Nguyễn Văn A",
+        "email": "khach1@gmail.com",
+        "phoneNumber": "0987654321",
+        "orderCount": 1,
+        "totalBuy": 750000.0,
+        "orderID": 2
+    },
+    {
+        "customerID": 3,
+        "fullName": "Trần Thị B",
+        "email": "khach2@gmail.com",
+        "phoneNumber": "0976543210",
+        "orderCount": 0,
+        "totalBuy": null,
+        "orderID": null
+    },
+    {
+        "customerID": 4,
+        "fullName": "Lê Văn C",
+        "email": "khach3@gmail.com",
+        "phoneNumber": "0965432109",
+        "orderCount": 1,
+        "totalBuy": 2000000.0,
+        "orderID": 4
+    },
+    {
+        "customerID": 5,
+        "fullName": "Phạm Thị D",
+        "email": "khach4@gmail.com",
+        "phoneNumber": "0954321098",
+        "orderCount": 0,
+        "totalBuy": null,
+        "orderID": null
+    },
+    {
+        "customerID": 6,
+        "fullName": "Hoàng Văn E",
+        "email": "khach5@gmail.com",
+        "phoneNumber": "0943210987",
+        "orderCount": 1,
+        "totalBuy": 800000.0,
+        "orderID": 6
+    },
+    {
+        "customerID": 7,
+        "fullName": "Võ Thị F",
+        "email": "khach6@gmail.com",
+        "phoneNumber": "0932109876",
+        "orderCount": 0,
+        "totalBuy": null,
+        "orderID": null
+    },
+    {
+        "customerID": 8,
+        "fullName": "Đặng Văn G",
+        "email": "khach7@gmail.com",
+        "phoneNumber": "0921098765",
+        "orderCount": 0,
+        "totalBuy": null,
+        "orderID": null
+    },
+    {
+        "customerID": 9,
+        "fullName": "Bùi Thị H",
+        "email": "khach8@gmail.com",
+        "phoneNumber": "0910987654",
+        "orderCount": 1,
+        "totalBuy": 1200000.0,
+        "orderID": 9
+    },
+    {
+        "customerID": 10,
+        "fullName": "Phan Văn K",
+        "email": "khach9@gmail.com",
+        "phoneNumber": "0909876543",
+        "orderCount": 0,
+        "totalBuy": null,
+        "orderID": null
+    },
+    {
+        "customerID": 11,
+        "fullName": "Ngô Thị L",
+        "email": "khach10@gmail.com",
+        "phoneNumber": "0898765432",
+        "orderCount": 0,
+        "totalBuy": null,
+        "orderID": null
+    },
+    {
+        "customerID": 12,
+        "fullName": "Võ Quang Bình",
+        "email": "sanj0@gmail.com",
+        "phoneNumber": "121231212431",
+        "orderCount": 0,
+        "totalBuy": null,
+        "orderID": null
+    },
+    {
+        "customerID": 13,
+        "fullName": "Võ Quang Thắng",
+        "email": "thang.vokhmt04k22@hcmut.edu.vn",
+        "phoneNumber": "0399728845",
+        "orderCount": 2,
+        "totalBuy": 1300000.0,
+        "orderID": 11
+    }
+]
+
+Mô tả: Trả về Danh sách Tài khoản hiện có trong shop của mình
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
+
+
+
+####################################### 17.Xem thông tin Tài khoản khi Admin click vào ########################################
+http://localhost:8080/admin/detailCustomer/{customerID}
+Phương thức: GET
+input: customerID (ví dụ http://localhost:8080/admin/detailCustomer/13)
+output: {
+    "customerID": 13,
+    "fullName": "Võ Quang Thắng",
+    "dateOfBirth": "2004-02-03",
     "gender": "man",
-    "phoneNumber": "0912345678",
-    "address": "Hàng Bài Hoàn Kiếm Hà Nội",
-    "email": "nguyenvana@gmail.com",
-    "totalBuy": 3900000.0,
+    "phoneNumber": "0399728845",
+    "address": "Hoành Vinh, An Ninh Quảng Ninh Quảng Bình",
+    "email": "thang.vokhmt04k22@hcmut.edu.vn",
+    "totalBuy": 1300000.0,
     "order": [
         {
-        "orderID": 14,
-        "total_price": 3900000.0,
-        "date": "2024-12-11",
-        "status": "pending"
+            "orderID": 11,
+            "total_price": 500000.0,
+            "date": "2025-01-01",
+            "status": "completed"
         },
         {
-        "orderID": 1,
-        "total_price": 1500000.0,
-        "date": "2024-12-01",
-        "status": "completed"
+            "orderID": 12,
+            "total_price": 800000.0,
+            "date": "2025-01-01",
+            "status": "completed"
         }
     ]
 }
 
-
+Mô tả: Trả về thông tin tài khoản khi click vào 1 tài khoản của api 16
+bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
 

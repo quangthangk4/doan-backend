@@ -28,7 +28,7 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
             "c.phone_number, concat(c.street,' ',c.district,' ',c.city),c.email,sum(o.total_price), " +
             "o.orderid, o.total_price, o.date, o.status " +
             "from customer c left join orders o on c.customerid = o.customerid " +
-            "where c.customerid = :customerid and o.status = 'completed' group by c.customerid, o.orderid " +
+            "where c.customerid = :customerid group by c.customerid, o.orderid " +
             "order by o.date desc;", nativeQuery = true)
     List<Object[]> findCustomerDetailById(@Param("customerid") Long customerid);
 

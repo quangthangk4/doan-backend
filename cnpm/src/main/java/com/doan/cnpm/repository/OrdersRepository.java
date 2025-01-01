@@ -18,7 +18,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
     @Query(value = "select * from orders o where o.customerid = :customerID and o.status = 'pending'", nativeQuery = true)
     Optional<Orders> findOrdersByCustomerID(@Param("customerID") Long customerID);
 
-    @Query(value = "SELECT p.name, p.gender, o.total_price , i.quantity, " +
+    @Query(value = "SELECT p.productid ,p.name, p.gender, o.total_price , i.quantity, " +
             "(SELECT i.imageurl FROM product_image i WHERE i.productid = p.productid LIMIT 1) as imageUrl " +
             "FROM orders o " +
             "LEFT JOIN include i ON o.orderid = i.orderid LEFT JOIN product p ON p.productid = i.productid " +
@@ -47,7 +47,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 //    danh sách sản phẩm trong order đó,(tìm theo orderid)
     @Query(value = "SELECT p.name, p.brand, p.material, p.price_selling, o.status, i.quantity, " +
             "(p.price_selling * i.quantity) AS total_price, " +
-            "(SELECT i.imageurl FROM product_image i WHERE i.productid = p.productid LIMIT 1) AS imageurl, " +
+            "(SELECT pi.imageurl FROM product_image pi WHERE pi.productid = p.productid LIMIT 1) AS imageurl, " +
             "CONCAT(c.first_name, ' ', c.last_name) AS full_name, c.phone_number, c.email, o.shipping_address " +
             "FROM orders o " +
             "LEFT JOIN include i ON i.orderid = o.orderid " +
@@ -55,5 +55,16 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
             "LEFT JOIN customer c ON c.customerid = o.customerid " +
             "WHERE o.orderid = :orderid and o.status = 'completed'", nativeQuery = true)
     List<Object[]> AllProductInOrder(@Param("orderid") Long orderid);
+
+
+    @Query(value = "SELECT p.name, p.brand, p.material, p.price_selling,p.productid, i.quantity, " +
+            "(p.price_selling * i.quantity) AS total_price, " +
+            "(SELECT pi.imageurl FROM product_image pi WHERE pi.productid = p.productid LIMIT 1) AS imageurl " +
+            "FROM orders o " +
+            "LEFT JOIN include i ON i.orderid = o.orderid " +
+            "LEFT JOIN product p ON p.productid = i.productid " +
+            "LEFT JOIN customer c ON c.customerid = o.customerid " +
+            "WHERE c.customerid = :customerId and o.status = 'completed'", nativeQuery = true)
+    List<Object[]> getHistoryProductBuyed(@Param("customerId") Long customerId);
 
 }

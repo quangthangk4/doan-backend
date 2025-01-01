@@ -3,6 +3,7 @@ package com.doan.cnpm.services;
 import com.doan.cnpm.dto.request.CartResponseDTO;
 import com.doan.cnpm.dto.request.OrdersRequestDTO;
 import com.doan.cnpm.dto.response.DetailOrderResponseDTO;
+import com.doan.cnpm.dto.response.HistoryResponse;
 import com.doan.cnpm.dto.response.ListOrderResponseDTO;
 import com.doan.cnpm.dto.response.TotalSaleTodayResponseDTO;
 import com.doan.cnpm.entity.*;
@@ -28,12 +29,13 @@ public class OrdersService {
     private final IncludeRepository includeRepository;
     private final OrderMapper orderMapper;
     private final TotalSaleTodayMapper totalSaleTodayMapper;
+    private final CustomerService customerService;
 
 
     public void AddToCart(OrdersRequestDTO ordersRequestDTO) {
-
-        if ( ordersRequestDTO.getCustomerId() == null || ordersRequestDTO.getProductId() == null
-        || ordersRequestDTO.getProductId() == null  || ordersRequestDTO.getQuantity() == null) {
+        Long customerId = customerService.myInfo().getCustomerID();
+        if ( customerId == null || ordersRequestDTO.getProductId() == null
+                || ordersRequestDTO.getQuantity() == null) {
             throw new RuntimeException("lỗi k truyền đủ biến");
         }
 
@@ -44,7 +46,8 @@ public class OrdersService {
         }
 
         // Tạo mới Order nếu chưa có
-        Optional<Orders> orders = ordersRepository.findOrdersByCustomerID(ordersRequestDTO.getCustomerId());
+        Optional<Orders> orders = ordersRepository
+                .findOrdersByCustomerID(customerId);
         Orders order = new Orders();
         if( orders.isEmpty() ) {
             order.setDate(ordersRequestDTO.getDate());
@@ -54,7 +57,7 @@ public class OrdersService {
             Employee employee = employeeRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Employee not found"));
 
-            Customer customer = customerRepository.findById(ordersRequestDTO.getCustomerId())
+            Customer customer = customerRepository.findById(customerId)
                     .orElseThrow(() -> new RuntimeException("Customer not found"));
 
             order.setEmployee(employee); // Liên kết với Employee
@@ -101,28 +104,32 @@ public class OrdersService {
         ordersRepository.save(order);
     }
 
-    public List<CartResponseDTO> ShoppingCart(Long customerID) {
-        if ( customerID == null ) {
-            throw new RuntimeException("chưa truyền customerID bây ơi!!");
+    public List<CartResponseDTO> ShoppingCart() {
+        Long id = customerService.myInfo().getCustomerID();
+        if ( id == null ) {
+            throw new RuntimeException("Bị looix đăng nhập thì phải??");
         }
-        return orderMapper.toCartResponseDTOs(ordersRepository.findAllProductCart(customerID));
+        return orderMapper.toCartResponseDTOs(ordersRepository.findAllProductCart(id));
     }
 
-    public void orderCheckOut(Long customerID) {
+    public void orderCheckOut() {
+        Long customerID = customerService.myInfo().getCustomerID();
         // kiểm tra input đầu vào
         if ( customerID == null ) {
-            throw new RuntimeException("Vui lòng truyền customerID vào !!");
+            throw new RuntimeException("Vui lòng đăng nhập !!");
         }
         //kiểm tra giỏ hàng của người đó có đang có đồ hay không
         Orders order = ordersRepository.findOrderByCustomerIDAndStatusPending(customerID)
                 .orElseThrow(() -> new RuntimeException("Không có sản phẩm nào trong giỏ hàng, vui lòng thêm sản phẩm!"));
 
         order.setStatus(Orders.Status.completed);
+        order.setDate(LocalDate.now());
         ordersRepository.save(order);
     }
 
 
-    public void orderRemoveItem(Long customerID, Long productID) {
+    public void orderRemoveItem(Long productID) {
+        Long customerID = customerService.myInfo().getCustomerID();
         if ( customerID == null || productID == null ) {
             throw new RuntimeException("truyền thiếu biến!! hoặc chưa truyền đủ biến!!");
         }
@@ -147,6 +154,29 @@ public class OrdersService {
         return orderMapper.toListOrderResponseDTOs(ordersRepository.listOrdersForAdmin());
     }
 
+
+    public List<HistoryResponse> getHistoryProductOrder(){
+        Long customerID = customerService.myInfo().getCustomerID();
+        List<Object[]> results = ordersRepository.getHistoryProductBuyed(customerID);
+
+        List<HistoryResponse> list = new ArrayList<>();
+        for (Object[] o : results) {
+            HistoryResponse item = HistoryResponse.builder()
+                    .name((String) o[0])
+                    .brand((String) o[1])
+                    .material((String) o[2])
+                    .price_selling((Double) o[3])
+                    .product_id((Long) o[4])
+                    .quantity((Long) o[5])
+                    .total_price((Double) o[6])
+                    .image((String) o[7])
+                    .build();
+
+            list.add(item);
+        }
+
+        return list;
+    }
 
 //   danh sách sản phẩm của order và thông tin của customer đó
     public DetailOrderResponseDTO getDetailOrder(Long orderID) {

@@ -7,19 +7,22 @@ import com.doan.cnpm.dto.response.DetailOrderResponseDTO;
 import com.doan.cnpm.dto.response.ListCustomerResponseDTO;
 import com.doan.cnpm.entity.Customer;
 import com.doan.cnpm.enums.Role;
+import com.doan.cnpm.exception.AppException;
+import com.doan.cnpm.exception.ErrorCode;
 import com.doan.cnpm.mapper.CustomerMapper;
 import com.doan.cnpm.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -46,38 +49,40 @@ public class CustomerService {
         return customerMapper.toCustomerResponse(customer);
     }
 
+
+
+    public Customer myInfo() {
+        var context = SecurityContextHolder.getContext();
+        var email = context.getAuthentication().getName();
+        Customer customer = customerRepository.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("Không tìm thấy Customer"));
+
+        return customer;
+    }
     // update password customer
 
 //    danh sách customer cho admin
     public List<ListCustomerResponseDTO> listCustomers() {
-        return customerRepository.findAllCustomers();
+        return customerRepository.findAllCustomers().stream()
+                .sorted(Comparator.comparing(ListCustomerResponseDTO::getCustomerID).reversed())
+                .collect(Collectors.toList());
     }
+
 
 //    chi tiết khách hàng
     public CustomerDetailResponseDTO detailCustomer(Long customerId) {
         List<Object[]> results = customerRepository.findCustomerDetailById(customerId);
-
         // Tạo danh sách sản phẩm
         List<CustomerDetailResponseDTO.orderDTO> orderList = new ArrayList<>();
 //        khởi tạo giá trị để tí nữa builder
         Long customerID = null;
         String fullName = null, gender = null, phoneNumber = null,address = null, email = null;
         LocalDate dateOfBirth = null;
-        Double totalBuy = null;
+        Double totalBuy = 0.0;
 
 
         for (Object[] result : results) {
-            // Ánh xạ từng sản phẩm
-            CustomerDetailResponseDTO.orderDTO order = CustomerDetailResponseDTO.orderDTO.builder()
-                    .orderID(((Number) result[8]).longValue())
-                    .total_price(((Number) result[9]).doubleValue())
-                    .date(((java.sql.Date) result[10]).toLocalDate())
-                    .status(CustomerDetailResponseDTO.orderDTO.Status.valueOf((String) result[11]))
-                    .build();
-
-            orderList.add(order);
-
-            // Chỉ cần ánh xạ thông tin khách hàng một lần
+            // ánh xạ thông tin của minh 1 lần
             if (fullName == null) {
                 customerID = (Long) result[0];
                 fullName = (String) result[1];
@@ -86,11 +91,26 @@ public class CustomerService {
                 phoneNumber = (String) result[4];
                 address = (String) result[5];
                 email = (String) result[6];
-                totalBuy = (Double) result[7];
             }
+
+            // Ánh xạ từng sản phẩm
+            if(Objects.equals(result[11].toString(), "completed")){
+                CustomerDetailResponseDTO.orderDTO order = CustomerDetailResponseDTO.orderDTO.builder()
+                        .orderID(((Number) result[8]).longValue())
+                        .total_price(((Number) result[9]).doubleValue())
+                        .date(((java.sql.Date) result[10]).toLocalDate())
+                        .status(CustomerDetailResponseDTO.orderDTO.Status.valueOf((String) result[11]))
+                        .build();
+
+                double sum = (Double) result[7];
+                totalBuy += sum;
+                orderList.add(order);
+                orderList.sort((o1, o2) -> Long.compare(o2.getOrderID(), o1.getOrderID()));
+
+            }
+
         }
 
-        // Tạo DTO cho chi tiết đơn hàng
         return CustomerDetailResponseDTO.builder()
                 .customerID(customerID)
                 .fullName(fullName)
@@ -102,5 +122,6 @@ public class CustomerService {
                 .totalBuy(totalBuy)
                 .order(orderList)
                 .build();
+
     }
 }

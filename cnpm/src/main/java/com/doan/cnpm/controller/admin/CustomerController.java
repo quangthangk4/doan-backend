@@ -22,17 +22,13 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @GetMapping("/listcustomer")
+    @GetMapping("/listCustomer")
     public List<ListCustomerResponseDTO> getAllCustomers() {
         return customerService.listCustomers();
     }
 
-    @GetMapping("/detailcustomer/{customerID}")
+    @GetMapping("/detailCustomer/{customerID}")
     public CustomerDetailResponseDTO getCustomerDetail(@PathVariable("customerID") Long customerID) {
         return customerService.detailCustomer(customerID);
     }
-
-
-
-
 }

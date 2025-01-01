@@ -15,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class CartResponseDTO {
+    private Long productId;
     private String name;
 
     @Enumerated(EnumType.STRING)
