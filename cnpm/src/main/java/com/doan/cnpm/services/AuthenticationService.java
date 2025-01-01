@@ -4,6 +4,7 @@ import com.doan.cnpm.dto.request.AuthenticationRequest;
 import com.doan.cnpm.dto.request.IntrospectRequest;
 import com.doan.cnpm.dto.response.AuthenticationResponse;
 import com.doan.cnpm.dto.response.IntrospectResponse;
+import com.doan.cnpm.entity.Customer;
 import com.doan.cnpm.exception.AppException;
 import com.doan.cnpm.exception.ErrorCode;
 import com.doan.cnpm.repository.CustomerRepository;
@@ -12,7 +13,6 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +20,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Set;
+import java.util.StringJoiner;
 
 @Slf4j
 @Service
@@ -33,7 +36,7 @@ public class AuthenticationService {
     private final CustomerRepository customerRepository;
 
     @NonFinal
-    @Value("${jwt.signerkey}")
+    @Value("${jwt.signerKey}")
     protected String SIGNER_KEY;
 
     public IntrospectResponse introspect(IntrospectRequest request)
@@ -63,7 +66,7 @@ public class AuthenticationService {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
 
-        var token = generateToken(authenticationRequest.getEmail(), user.getCustomerID());
+        var token = generateToken(user);
 
         return AuthenticationResponse.builder()
                 .token(token)
@@ -73,16 +76,17 @@ public class AuthenticationService {
     }
 
     // tạo token
-    private String generateToken(String email,Long customerId) {
+    private String generateToken(Customer customer) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(email)
+                .subject(customer.getEmail())
                 .issuer("http://localhost:3000/")
                 .issueTime(new Date())
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
-                .claim("customerId", customerId)
+                .claim("customerId", customer.getCustomerID())
+                .claim("scope", buildScope(customer))
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -96,5 +100,14 @@ public class AuthenticationService {
             log.error("Cannot create token",e);
             throw new RuntimeException(e);
         }
+    }
+
+    public String buildScope(Customer customer) {
+        StringJoiner stringJoiner = new StringJoiner(" ");
+        if(!CollectionUtils.isEmpty(customer.getRoles())) {
+            customer.getRoles().forEach(stringJoiner::add);
+        }
+
+        return stringJoiner.toString();
     }
 }

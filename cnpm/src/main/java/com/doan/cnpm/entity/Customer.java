@@ -1,12 +1,12 @@
 package com.doan.cnpm.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -34,8 +34,8 @@ public class Customer {
     private String email;
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ElementCollection
+    private Set<String> roles;
 
 
     @JsonManagedReference
@@ -45,10 +45,6 @@ public class Customer {
     @JsonManagedReference
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Rating> ratings;
-
-    public enum Role {
-        customer, admin
-    }
 
     public enum Gender {
         man, woman, other

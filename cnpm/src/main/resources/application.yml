@@ -18,4 +18,4 @@ spring:
 
 
 jwt:
-  signerkey: "FsE+3hsTmHNHMhi2MPUTX8KSGsGtKoLyPoceeVMXjnsvhqR50zet4S63FDTgeOQA"
+  signerKey: "FsE+3hsTmHNHMhi2MPUTX8KSGsGtKoLyPoceeVMXjnsvhqR50zet4S63FDTgeOQA"

@@ -5,6 +5,7 @@ import com.doan.cnpm.dto.request.AuthenticationRequest;
 import com.doan.cnpm.dto.request.IntrospectRequest;
 import com.doan.cnpm.dto.request.UserCreateDto;
 import com.doan.cnpm.dto.response.AuthenticationResponse;
+import com.doan.cnpm.dto.response.CustomerResponse;
 import com.doan.cnpm.dto.response.IntrospectResponse;
 import com.doan.cnpm.services.AuthenticationService;
 import com.doan.cnpm.services.CustomerService;
@@ -18,16 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final CustomerService customerService;
 
-    @PostMapping("/sigin")
-    UserCreateDto createCustomer(@RequestBody UserCreateDto userCreateDto) {
-        UserCreateDto user = customerService.createCustomer(userCreateDto);
-        return user;
+    @PostMapping("/sign")
+    ApiResponse<CustomerResponse> createCustomer(@RequestBody UserCreateDto userCreateDto) {
+        return ApiResponse.<CustomerResponse>builder()
+                .result(customerService.createCustomer(userCreateDto))
+                .build();
     }
 
     @PostMapping("/login")

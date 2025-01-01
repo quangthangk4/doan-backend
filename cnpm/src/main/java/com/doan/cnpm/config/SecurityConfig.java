@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -20,19 +21,22 @@ import javax.crypto.spec.SecretKeySpec;
 public class SecurityConfig {
 
     private final String[] PUBLIC_ENDPOINTS = {
-            "/product/**", "/auth/**"
+            "/auth/sign" , "/auth/login","/auth/introspect"
     };
 
-    @Value("${jwt.signerkey}")
+    private final String[] ADMIN_ENDPOINTS = {
+            "/admin/**"
+    };
+
+    @Value("${jwt.signerKey}")
     protected String SIGNER_KEY;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(authorizeRequests ->
-            authorizeRequests.requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
-                .requestMatchers(HttpMethod.POST, "auth/login").permitAll()
+            authorizeRequests.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                    .requestMatchers(HttpMethod.GET, ADMIN_ENDPOINTS).hasAuthority("SCOPE_ADMIN")
             .anyRequest().authenticated());
-
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
         httpSecurity.oauth2ResourceServer(oauth2 ->
@@ -51,4 +55,8 @@ public class SecurityConfig {
                 .build();
     };
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
+    }
 }

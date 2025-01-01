@@ -1,20 +1,20 @@
-package com.doan.cnpm.dto.request;
+package com.doan.cnpm.dto.response;
 
-
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
-@Setter
-@Getter
+
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserCreateDto {
+@Getter
+@Setter
+@Builder
+public class CustomerResponse {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerID;
     private String firstName;
     private String lastName;
@@ -28,7 +28,7 @@ public class UserCreateDto {
     private String district;
     private String street;
     private String email;
-    private String password;
+    private Set<String> roles;
 
     public enum Gender {
         man, woman, other

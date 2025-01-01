@@ -2,9 +2,11 @@ package com.doan.cnpm.services;
 
 import com.doan.cnpm.dto.request.UserCreateDto;
 import com.doan.cnpm.dto.response.CustomerDetailResponseDTO;
+import com.doan.cnpm.dto.response.CustomerResponse;
 import com.doan.cnpm.dto.response.DetailOrderResponseDTO;
 import com.doan.cnpm.dto.response.ListCustomerResponseDTO;
 import com.doan.cnpm.entity.Customer;
+import com.doan.cnpm.enums.Role;
 import com.doan.cnpm.mapper.CustomerMapper;
 import com.doan.cnpm.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,19 +26,24 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final PasswordEncoder passwordEncoder;
 
 
     // create customer
-    public UserCreateDto createCustomer(UserCreateDto userCreateDto) {
+    public CustomerResponse createCustomer(UserCreateDto userCreateDto) {
         if (customerRepository.existsCustomerByEmail(userCreateDto.getEmail())) {
             throw new RuntimeException("user đã tồn tại, vui lòng dùng email khác!");
         }
 
         Customer customer = customerMapper.toCustomer(userCreateDto);
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         customer.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
+
+        HashSet<String> roles = new HashSet<>();
+        roles.add(Role.CUSTOMER.name());
+        customer.setRoles(roles);
+
         customerRepository.save(customer);
-        return customerMapper.toUserCreateDto(customer);
+        return customerMapper.toCustomerResponse(customer);
     }
 
     // update password customer

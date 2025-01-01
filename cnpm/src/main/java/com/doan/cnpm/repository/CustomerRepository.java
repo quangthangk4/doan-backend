@@ -19,7 +19,7 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
             "(SELECT o2.orderID FROM Orders o2 " +
             "WHERE o2.customer.customerID = c.customerID AND o2.status = 'completed' " +
             "ORDER BY o2.date DESC LIMIT 1) )" +
-            "from Customer c inner join Orders o on c.customerID = o.customer.customerID and o.status = 'completed' " +
+            "from Customer c left join Orders o on c.customerID = o.customer.customerID and o.status = 'completed' " +
             "group by c.customerID")
     List<ListCustomerResponseDTO> findAllCustomers();
 
