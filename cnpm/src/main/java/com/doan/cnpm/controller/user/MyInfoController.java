@@ -6,6 +6,7 @@ import com.doan.cnpm.dto.response.HistoryResponse;
 import com.doan.cnpm.services.CustomerService;
 import com.doan.cnpm.services.OrdersService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MyInfoController {
     private final CustomerService customerService;
     private final OrdersService ordersService;

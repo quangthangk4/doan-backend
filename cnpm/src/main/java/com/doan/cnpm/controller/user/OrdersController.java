@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user/orders")
+@CrossOrigin(origins = "http://localhost:3000")
 public class OrdersController {
     private final OrdersService ordersService;
     private final IncludeRepository includeRepository;

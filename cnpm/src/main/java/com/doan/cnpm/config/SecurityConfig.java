@@ -1,6 +1,5 @@
 package com.doan.cnpm.config;
 
-import com.doan.cnpm.enums.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +16,9 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -42,24 +44,39 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(authorizeRequests ->
-            authorizeRequests.requestMatchers(HttpMethod.POST, GLOBAL_ENDPOINTS).permitAll()
-                    .requestMatchers(HttpMethod.GET, GLOBAL_ENDPOINTS).permitAll()
-                    .requestMatchers(HttpMethod.GET, ADMIN_ENDPOINTS).hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, CUSTOMER_ENDPOINTS).hasRole("CUSTOMER")
-                    .requestMatchers(HttpMethod.POST, CUSTOMER_ENDPOINTS).hasRole("CUSTOMER")
-                    .requestMatchers(HttpMethod.PUT, CUSTOMER_ENDPOINTS).hasRole("CUSTOMER")
-                    .requestMatchers(HttpMethod.DELETE, CUSTOMER_ENDPOINTS).hasRole("CUSTOMER")
-            .anyRequest().authenticated());
-        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS config
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests.requestMatchers(HttpMethod.POST, GLOBAL_ENDPOINTS).permitAll()
+                                .requestMatchers(HttpMethod.GET, GLOBAL_ENDPOINTS).permitAll()
+                                .requestMatchers(HttpMethod.GET, ADMIN_ENDPOINTS).hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, CUSTOMER_ENDPOINTS).hasRole("CUSTOMER")
+                                .requestMatchers(HttpMethod.POST, CUSTOMER_ENDPOINTS).hasRole("CUSTOMER")
+                                .requestMatchers(HttpMethod.PUT, CUSTOMER_ENDPOINTS).hasRole("CUSTOMER")
+                                .requestMatchers(HttpMethod.DELETE, CUSTOMER_ENDPOINTS).hasRole("CUSTOMER")
+                                .anyRequest().authenticated())
+                .csrf(AbstractHttpConfigurer::disable);
 
         httpSecurity.oauth2ResourceServer(oauth2 ->
-            oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())
-                    .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())
+                        .jwtAuthenticationConverter(jwtAuthenticationConverter()))
         );
 
         return httpSecurity.build();
     }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:3000"); // React App
+        configuration.addAllowedMethod("*"); // Cho phép tất cả các phương thức HTTP
+        configuration.addAllowedHeader("*"); // Chấp nhận tất cả header
+        configuration.setAllowCredentials(true); // Cho phép cookies và thông tin xác thực
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Áp dụng cho tất cả endpoint
+        return source;
+    }
+
 
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
