@@ -51,6 +51,7 @@ public interface ProductMapper {
                 .status(ProductDetailResponseDTO.Status.valueOf((String) product[5]))
                 .ratingCount(((Number) product[6]).longValue())
                 .commentCount(((Number) product[7]).longValue())
+                .ratingAverage(((BigDecimal) product[8]).doubleValue())
                 .images(images)
                 .build();
     }

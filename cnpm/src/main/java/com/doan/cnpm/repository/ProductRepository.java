@@ -47,7 +47,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Object[]> findProductAllResponse();
 
     @Query(value = "SELECT p.productid,p.name, p.description, p.material, p.price_selling, p.status, " +
-            "COUNT(r.ratingid), COUNT(r.content) " +
+            "COUNT(r.ratingid), COUNT(r.content),AVG(r.star) " +
             "FROM product p " +
             "LEFT JOIN rating r ON p.productid = r.productid " +
             "WHERE p.productid = :productid " +
