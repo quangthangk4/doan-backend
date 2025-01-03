@@ -4,6 +4,7 @@ import com.doan.cnpm.dto.response.AllProductResponse;
 import com.doan.cnpm.dto.response.ProductDetailResponseDTO;
 import org.mapstruct.Mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,8 @@ public interface ProductMapper {
                 .name((String) product[1])
                 .priceSelling(((Number) product[2]).doubleValue())
                 .ratingCount(((Number) product[3]).longValue())
-                .imageUrl((String) product[4])
+                .ratingAverage(((BigDecimal) product[4]).doubleValue())
+                .imageUrl((String) product[5])
                 .build();
     }
 

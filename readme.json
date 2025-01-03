@@ -324,7 +324,7 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 13.Xem thông tin cá nhân ########################################
-http://localhost:8080/user/allorder
+http://localhost:8080/admin/allorder
 Phương thức: GET
 input: không
 output: [

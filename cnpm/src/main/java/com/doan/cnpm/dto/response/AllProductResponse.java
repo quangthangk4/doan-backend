@@ -14,5 +14,6 @@ public class AllProductResponse {
     private String name;
     private double priceSelling;
     private Long ratingCount;
+    private Double ratingAverage;
     private String imageUrl;
 }

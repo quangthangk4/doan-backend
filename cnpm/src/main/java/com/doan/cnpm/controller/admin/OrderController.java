@@ -6,16 +6,14 @@ import com.doan.cnpm.dto.response.TotalSaleTodayResponseDTO;
 import com.doan.cnpm.repository.OrdersRepository;
 import com.doan.cnpm.services.OrdersService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
+@CrossOrigin(origins = "http://localhost:3000")  // Cho phép từ localhost:3000
 public class OrderController {
     private final OrdersRepository ordersRepository;
     private final OrdersService ordersService;

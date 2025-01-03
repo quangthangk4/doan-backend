@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/user/orders")
+@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")  // Cho phép từ localhost:3000
 public class OrdersController {
     private final OrdersService ordersService;
     private final IncludeRepository includeRepository;

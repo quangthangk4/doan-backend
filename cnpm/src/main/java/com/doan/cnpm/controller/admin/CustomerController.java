@@ -18,6 +18,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
+@CrossOrigin(origins = "http://localhost:3000")  // Cho phép từ localhost:3000
 public class CustomerController {
 
     private final CustomerService customerService;
