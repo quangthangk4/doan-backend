@@ -1,11 +1,13 @@
 package com.doan.cnpm.services;
 
 import com.doan.cnpm.dto.request.AddProductDto;
+import com.doan.cnpm.dto.request.AddQuantityProductResquest;
 import com.doan.cnpm.dto.response.AllProductResponse;
 import com.doan.cnpm.dto.response.ProductDetailResponseDTO;
 import com.doan.cnpm.dto.response.ProductResponseDTO;
 import com.doan.cnpm.entity.Employee;
 import com.doan.cnpm.entity.Product;
+import com.doan.cnpm.exception.ErrorCode;
 import com.doan.cnpm.mapper.ProductMapper;
 import com.doan.cnpm.repository.EmployeeRepository;
 import com.doan.cnpm.repository.ProductImageRepository;
@@ -85,6 +87,18 @@ public class ProductService {
 
 
         return productMapper.toAddProductDto(savedProduct);
+    }
+
+    // thêm số lượng sp
+    public String quantityProductResquest(AddQuantityProductResquest resquest) {
+        Product product = productRepository.findById(resquest.getProductId()).orElseThrow(
+                () -> new RuntimeException(ErrorCode.PRODUCT_NOT_FOUND.getMessage()));
+
+        product.setQuantityImport(product.getQuantityImport() + resquest.getQuantity());
+        product.setQuantityStock(product.getQuantityStock() + resquest.getQuantity());
+        Product p = productRepository.save(product);
+
+        return "Thêm số lượng thành công!";
     }
 
 }

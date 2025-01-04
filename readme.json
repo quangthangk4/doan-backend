@@ -683,3 +683,17 @@ output: Tạo sản phẩm thành công
 
 
 
+####################################### 19.Thêm số lượng nhập kho của sản phẩm ########################################
+http://localhost:8080/admin/addQuantityProduct
+Phương thức: POST
+input: {
+    "productId": 6,
+    "quantity": 10
+}
+
+output: {
+    "code": 200,
+    "result": "Thêm số lượng thành công!"
+}
+
+
