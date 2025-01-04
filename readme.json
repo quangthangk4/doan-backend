@@ -328,7 +328,7 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 http: //localhost:8080/admin/allorder
 =======
 ####################################### 13.Xem thông đơn hàng ########################################
-http://localhost:8080/admin/allorder
+http: //localhost:8080/admin/allorder
 >>>>>>> 1c05306a410def36250073c560940dfabb7721a5
 Phương thức: GET
 input: không
@@ -670,7 +670,7 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 18.Tạo sản phẩm ########################################
-http://localhost:8080/admin/addProduct
+http: //localhost:8080/admin/addProduct
 Phương thức: POST
 input: {
     "name": "Áo Khoác Bomber Nữ",
@@ -689,7 +689,7 @@ output: Tạo sản phẩm thành công
 
 
 ####################################### 19.Thêm số lượng nhập kho của sản phẩm ########################################
-http://localhost:8080/admin/addQuantityProduct
+http: //localhost:8080/admin/addQuantityProduct
 Phương thức: POST
 input: {
     "productId": 6,
@@ -700,5 +700,3 @@ output: {
     "code": 200,
     "result": "Thêm số lượng thành công!"
 }
-
-
