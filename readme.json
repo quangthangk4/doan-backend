@@ -6,7 +6,7 @@ Phần global, không cần đăng nhập cũng vào được
 ////////////////////////////////////////////////////////////////////////////////////
 Phần Authentication (đăng nhập, đăng kí)
 ########################################### 1. Đăng kí ################################################
-http://localhost:8080/global/auth/sign
+http: //localhost:8080/global/auth/sign
 Phương thức: POST
 input: {
     "firstName": "Võ Quang",
@@ -42,13 +42,13 @@ Mô tả: nhập vào form rồi ấn đăng kí ( chú ý định dạng Date n
 
 
 ########################################### 2. Đăng nhập ################################################
-http://localhost:8080/global/auth/login
+http: //localhost:8080/global/auth/login
 Phương thức: POST
 input: {
     "email": "thang.vokhmt04k22@hcmut.edu.vn",
     "password": "123456"
 }
-output:{
+output: {
     "code": 200,
     "result": {
         "token": "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAvIiwiY3VzdG9tZXJJZCI6MSwic3ViIjoiYWRtaW5AZ21haWwuY29tIiwiZXhwIjoxNzM1NzI3NTIwLCJpYXQiOjE3MzU3MjM5MjAsInNjb3BlIjoiQ1VTVE9NRVIgQURNSU4ifQ.ar8e2uQIW5BnEzoHiRfETt3czRIx9fJ4p9fVOeSGrv-CiZCYhtiOu4ty9sYsgFr_jTDpkyR9QzV-1nLm1YIXWw",
@@ -61,7 +61,7 @@ Mô tả: sau khi đăng nhập thành công sẽ trả về 1 token, ta lưu to
 
 
 ########################################### 3. Danh sách sản phẩm nam ###########################################
-http://localhost:8080/global/product/man
+http: //localhost:8080/global/product/man
 Phương thức: GET
 input: không
 output: [
@@ -94,7 +94,7 @@ Mô tả: trả về tất cả sản phẩm trong trang "Man" của user, k c�
 
 
 ########################################### 4. Danh sách sản phẩm nữ ###########################################
-http://localhost:8080/global/product/woman
+http: //localhost:8080/global/product/woman
 Phương thức: GET
 input: không
 output: [
@@ -119,44 +119,44 @@ k cần truyền header chứa token cũng được
 
 
 ########################################### 5.Danh sách sản phẩm(tất cả) ###########################################
-http://localhost:8080/global/product/all
+http: //localhost:8080/global/product/all
 Phương thức: GET
 input: không
 output: [
     {
-    "productID": 1,
-    "name": "Áo Thun Nam",
-    "priceSelling": 200000.0,
-    "ratingCount": 2,
-    "imageUrl": "https://example.com/images/product1-2.jpg"
+        "productID": 1,
+        "name": "Áo Thun Nam",
+        "priceSelling": 200000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product1-2.jpg"
     },
     {
-    "productID": 2,
-    "name": "Áo Thun Nữ",
-    "priceSelling": 250000.0,
-    "ratingCount": 2,
-    "imageUrl": "https://example.com/images/product2-2.jpg"
+        "productID": 2,
+        "name": "Áo Thun Nữ",
+        "priceSelling": 250000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product2-2.jpg"
     },
     {
-    "productID": 3,
-    "name": "Ví Nam",
-    "priceSelling": 300000.0,
-    "ratingCount": 2,
-    "imageUrl": "https://example.com/images/product3-2.jpg"
+        "productID": 3,
+        "name": "Ví Nam",
+        "priceSelling": 300000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product3-2.jpg"
     },
     {
-    "productID": 4,
-    "name": "Balo Du Lịch",
-    "priceSelling": 400000.0,
-    "ratingCount": 2,
-    "imageUrl": "https://example.com/images/product4-2.jpg"
+        "productID": 4,
+        "name": "Balo Du Lịch",
+        "priceSelling": 400000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product4-2.jpg"
     },
     {
-    "productID": 5,
-    "name": "Tất Nam",
-    "priceSelling": 160000.0,
-    "ratingCount": 2,
-    "imageUrl": "https://example.com/images/product5-2.jpg"
+        "productID": 5,
+        "name": "Tất Nam",
+        "priceSelling": 160000.0,
+        "ratingCount": 2,
+        "imageUrl": "https://example.com/images/product5-2.jpg"
     }
 ]
 
@@ -165,10 +165,10 @@ k cần truyền header chứa token cũng được
 
 
 ########################################### 6.Chi tiết sản phẩm ########################################
-http://localhost:8080/global/product/detail/{productID}
+http: //localhost:8080/global/product/detail/{productID}
 Phương thức: GET
-input: productID (ví dụ http://localhost:8080/global/product/detail/1)
-output:{
+input: productID (ví dụ http: //localhost:8080/global/product/detail/1)
+output: {
     "productID": 1,
     "name": "Áo Thun Nam",
     "description": "Sản phẩm chất lượng cao",
@@ -191,9 +191,9 @@ k cần truyền header chứa token cũng được
 /////////////////////////////////////////////////////////////////////////////////////////////////
         Phần 2: user, cần đăng nhập để gọi được api dưới, cần truyền header chứa token lên server
 ####################################### 7.Thêm sản phẩm vào giỏ hàng ########################################
-http://localhost:8080/user/orders/addtocart
+http: //localhost:8080/user/orders/addtocart
 Phương thức: POST
-input:{
+input: {
     "productId": 1,
     "quantity": 5,
     "date": "2025-01-01"
@@ -207,7 +207,7 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 8.Xem giỏ hàng ########################################
-http://localhost:8080/user/orders/myCart
+http: //localhost:8080/user/orders/myCart
 Phương thức: GET
 input: không
 output: [
@@ -234,7 +234,7 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 9.Thanh toán giỏ hàng ########################################
-http://localhost:8080/user/orders/checkout
+http: //localhost:8080/user/orders/checkout
 Phương thức: PUT
 input: không
 output: Thanh Toán thành công, lần sau mua tiếp nha bà:))!
@@ -246,9 +246,9 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 10.Xóa sản phẩm ra khỏi giỏ hàng ########################################
-http://localhost:8080/user/orders/itemcart/{productID}
+http: //localhost:8080/user/orders/itemcart/{productID}
 Phương thức: DELETE
-input: productID (ví dụ http://localhost:8080/user/orders/itemcart/1))
+input: productID (ví dụ http: //localhost:8080/user/orders/itemcart/1))
 output: Xóa sản phẩm thành công!!
 
 Mô tả: xóa sản phẩm đó ra khỏi giỏ hàng khi click, truyền vào productID của sản phẩm đó
@@ -256,7 +256,7 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 11.Lịch sử mua hàng của user ########################################
-http://localhost:8080/user/history
+http: //localhost:8080/user/history
 Phương thức: GET
 input: không
 output: {
@@ -309,13 +309,13 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 ####################################### 12.Doanh thu trong ngày trang DashBoard ########################################
-http://localhost:8080/admin/totalSalesToday
+http: //localhost:8080/admin/totalSalesToday
 Phương thức: GET
 input: không
 output: {
-"total": 750000.0,
-"customerCount": 1,
-"orderCount": 1
+    "total": 750000.0,
+    "customerCount": 1,
+    "orderCount": 1
 }
 
 Mô tả: Trả về số liệu doanh thu trong ngày trong trong DashBoard admin
@@ -324,7 +324,7 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 13.Xem thông tin cá nhân ########################################
-http://localhost:8080/user/allorder
+http: //localhost:8080/user/allorder
 Phương thức: GET
 input: không
 output: [
@@ -377,9 +377,9 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 14.Xem chi tiết sản phẩm trong order của khách hàng ########################################
-http://localhost:8080/admin/allitem/{orderid}
+http: //localhost:8080/admin/allitem/{orderid}
 Phương thức: GET
-input: orderid (ví dụ : http://localhost:8080/admin/allitem/12)
+input: orderid (ví dụ : http: //localhost:8080/admin/allitem/12)
 output: {
     "full_name": "Võ Quang Thắng",
     "phone_number": "0399728845",
@@ -415,7 +415,7 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 15.Xem danh sách sản phẩm hiện có trong shop ########################################
-http://localhost:8080/admin/listProduct
+http: //localhost:8080/admin/listProduct
 Phương thức: GET
 input: không
 output: [
@@ -502,7 +502,7 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 16.Xem danh sách Tài khoản(Customer) đang có ########################################
-http://localhost:8080/admin/listCustomer
+http: //localhost:8080/admin/listCustomer
 Phương thức: GET
 input: không
 output: [
@@ -631,9 +631,9 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 ####################################### 17.Xem thông tin Tài khoản khi Admin click vào ########################################
-http://localhost:8080/admin/detailCustomer/{customerID}
+http: //localhost:8080/admin/detailCustomer/{customerID}
 Phương thức: GET
-input: customerID (ví dụ http://localhost:8080/admin/detailCustomer/13)
+input: customerID (ví dụ http: //localhost:8080/admin/detailCustomer/13)
 output: {
     "customerID": 13,
     "fullName": "Võ Quang Thắng",

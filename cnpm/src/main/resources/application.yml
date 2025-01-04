@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://sql12.freesqldatabase.com:3306/sql12755158
-    username: sql12755158
-    password: Q1APd67sV6
+    url: jdbc:mysql://localhost:3306/doan
+    username: root
+    password: lanhuong1412
 
   jpa:
     hibernate:
