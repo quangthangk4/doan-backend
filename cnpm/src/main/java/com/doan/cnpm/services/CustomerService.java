@@ -75,9 +75,7 @@ public class CustomerService {
 
 //    danh sách customer cho admin
     public List<ListCustomerResponseDTO> listCustomers() {
-        return customerRepository.findAllCustomers().stream()
-                .sorted(Comparator.comparing(ListCustomerResponseDTO::getCustomerID).reversed())
-                .collect(Collectors.toList());
+        return customerRepository.findAllCustomers();
     }
 
     //thoong tin khách hàng

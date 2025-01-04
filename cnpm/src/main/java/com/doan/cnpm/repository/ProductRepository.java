@@ -57,6 +57,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT new com.doan.cnpm.dto.response.ProductResponseDTO" +
             "(p.productID ,p.name ,p.description ," +
             "p.material ,p.brand ,p.quantitySold ,p.type ,p.quantityImport ," +
-            "p.priceImport ,p.priceSelling ,p.quantityStock ,p.gender ,p.status) from Product p")
+            "p.priceImport ,p.priceSelling ,p.quantityStock ,p.gender ,p.status) from Product p" +
+            " order by p.productID asc ")
     List<ProductResponseDTO> findAllProduct();
 }
