@@ -1,7 +1,9 @@
 package com.doan.cnpm.mapper;
 
+import com.doan.cnpm.dto.request.AddProductDto;
 import com.doan.cnpm.dto.response.AllProductResponse;
 import com.doan.cnpm.dto.response.ProductDetailResponseDTO;
+import com.doan.cnpm.entity.Product;
 import org.mapstruct.Mapper;
 
 import java.math.BigDecimal;
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
+    public AddProductDto toAddProductDto(Product product);
+
     default AllProductResponse toAllProductResponse(Object[] product) {
         if (product == null) {
             return null;
