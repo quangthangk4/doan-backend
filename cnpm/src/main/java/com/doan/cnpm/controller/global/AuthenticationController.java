@@ -19,11 +19,6 @@ import java.text.ParseException;
 @RestController
 @RequestMapping("/global/auth")
 @RequiredArgsConstructor
-<<<<<<< HEAD
-@CrossOrigin(origins = "http://localhost:3000")
-=======
-
->>>>>>> 62b2f7a836d950e9823bd8aaf07bd41b95a9eb60
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final CustomerService customerService;

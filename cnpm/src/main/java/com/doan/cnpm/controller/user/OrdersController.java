@@ -17,12 +17,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user/orders")
-<<<<<<< HEAD
-@CrossOrigin(origins = "http://localhost:3000")
-=======
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")  // Cho phép từ localhost:3000
->>>>>>> 62b2f7a836d950e9823bd8aaf07bd41b95a9eb60
+@CrossOrigin(origins = "http://localhost:3000") // Cho phép từ localhost:3000
 public class OrdersController {
     private final OrdersService ordersService;
     private final IncludeRepository includeRepository;

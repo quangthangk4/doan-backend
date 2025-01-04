@@ -16,11 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
-<<<<<<< HEAD
-@CrossOrigin(origins = "http://localhost:3000")
-=======
 @CrossOrigin(origins = "*")
->>>>>>> 62b2f7a836d950e9823bd8aaf07bd41b95a9eb60
 public class MyInfoController {
     private final CustomerService customerService;
     private final OrdersService ordersService;

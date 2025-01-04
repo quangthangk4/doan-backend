@@ -83,12 +83,8 @@ public class AuthenticationService {
                 .issuer("toiyeuVietNam")
                 .issueTime(new Date())
                 .expirationTime(new Date(
-                        Instant.now().plus(3, ChronoUnit.HOURS).toEpochMilli()
-                ))
-<<<<<<< HEAD
-=======
+                        Instant.now().plus(3, ChronoUnit.HOURS).toEpochMilli()))
                 .claim("customerId", customer.getCustomerID())
->>>>>>> 62b2f7a836d950e9823bd8aaf07bd41b95a9eb60
                 .claim("roles", buildScope(customer))
                 .build();
 
@@ -100,14 +96,14 @@ public class AuthenticationService {
             jwsObject.sign(new MACSigner(SIGNER_KEY.getBytes()));
             return jwsObject.serialize();
         } catch (JOSEException e) {
-            log.error("Cannot create token",e);
+            log.error("Cannot create token", e);
             throw new RuntimeException(e);
         }
     }
 
     public String buildScope(Customer customer) {
         StringJoiner stringJoiner = new StringJoiner(" ");
-        if(!CollectionUtils.isEmpty(customer.getRoles())) {
+        if (!CollectionUtils.isEmpty(customer.getRoles())) {
             customer.getRoles().forEach(stringJoiner::add);
         }
 
