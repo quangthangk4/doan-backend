@@ -323,8 +323,13 @@ bắt buộc phải đăng nhập, truyền header chứa token mới gọi đư
 
 
 
+<<<<<<< HEAD
 ####################################### 13.Xem thông tin cá nhân ########################################
 http: //localhost:8080/admin/allorder
+=======
+####################################### 13.Xem thông đơn hàng ########################################
+http://localhost:8080/admin/allorder
+>>>>>>> 1c05306a410def36250073c560940dfabb7721a5
 Phương thức: GET
 input: không
 output: [
@@ -661,4 +666,39 @@ output: {
 
 Mô tả: Trả về thông tin tài khoản khi click vào 1 tài khoản của api 16
 bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
+
+
+
+####################################### 18.Tạo sản phẩm ########################################
+http://localhost:8080/admin/addProduct
+Phương thức: POST
+input: {
+    "name": "Áo Khoác Bomber Nữ",
+    "description": "Áo khoác bomber nữ thời trang, ấm áp",
+    "material": "Polyester",
+    "brand": "Fashionista",
+    "type": "Áo khoác",
+    "quantityImport": 50,
+    "priceImport": 350000,
+    "priceSelling": 450000,
+    "gender": "woman",
+    "status": "in_stock"
+}
+output: Tạo sản phẩm thành công
+
+
+
+####################################### 19.Thêm số lượng nhập kho của sản phẩm ########################################
+http://localhost:8080/admin/addQuantityProduct
+Phương thức: POST
+input: {
+    "productId": 6,
+    "quantity": 10
+}
+
+output: {
+    "code": 200,
+    "result": "Thêm số lượng thành công!"
+}
+
 
