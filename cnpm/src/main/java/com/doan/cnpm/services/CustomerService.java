@@ -1,10 +1,7 @@
 package com.doan.cnpm.services;
 
 import com.doan.cnpm.dto.request.UserCreateDto;
-import com.doan.cnpm.dto.response.CustomerDetailResponseDTO;
-import com.doan.cnpm.dto.response.CustomerResponse;
-import com.doan.cnpm.dto.response.DetailOrderResponseDTO;
-import com.doan.cnpm.dto.response.ListCustomerResponseDTO;
+import com.doan.cnpm.dto.response.*;
 import com.doan.cnpm.entity.Customer;
 import com.doan.cnpm.enums.Role;
 import com.doan.cnpm.exception.AppException;
@@ -59,14 +56,33 @@ public class CustomerService {
 
         return customer;
     }
+
+    public MyInfoResponse myInfoResponse(){
+        Customer customer = myInfo();
+        String address = customer.getStreet() +", " + customer.getDistrict() +", " + customer.getCity();
+        return MyInfoResponse.builder()
+                .firstName(customer.getFirstName())
+                .lastName(customer.getLastName())
+                .dob(customer.getDateOfBirth())
+                .gender(String.valueOf(customer.getGender()))
+                .phoneNumber(customer.getPhoneNumber())
+                .address(address)
+                .email(customer.getEmail())
+                .build();
+
+    }
     // update password customer
 
 //    danh sách customer cho admin
     public List<ListCustomerResponseDTO> listCustomers() {
-        return customerRepository.findAllCustomers().stream()
-                .sorted(Comparator.comparing(ListCustomerResponseDTO::getCustomerID).reversed())
-                .collect(Collectors.toList());
+        return customerRepository.findAllCustomers();
     }
+
+    //thoong tin khách hàng
+//    public MyInfoResponse myInfoResponse(){
+////        Long id = myInfo().getCustomerID();
+//
+//    }
 
 
 //    chi tiết khách hàng

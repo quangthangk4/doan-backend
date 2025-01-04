@@ -113,13 +113,13 @@ public class OrdersService {
     }
 
     public void orderCheckOut() {
-        Long customerID = customerService.myInfo().getCustomerID();
+        Long id = customerService.myInfo().getCustomerID();
         // kiểm tra input đầu vào
-        if ( customerID == null ) {
+        if ( id == null ) {
             throw new RuntimeException("Vui lòng đăng nhập !!");
         }
         //kiểm tra giỏ hàng của người đó có đang có đồ hay không
-        Orders order = ordersRepository.findOrderByCustomerIDAndStatusPending(customerID)
+        Orders order = ordersRepository.findOrderByCustomerIDAndStatusPending(id)
                 .orElseThrow(() -> new RuntimeException("Không có sản phẩm nào trong giỏ hàng, vui lòng thêm sản phẩm!"));
 
         order.setStatus(Orders.Status.completed);

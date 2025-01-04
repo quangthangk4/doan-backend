@@ -51,10 +51,8 @@ public class ProductService {
 
     //    Trả về danh sách product ( trả về entity lun, khỏi DTO đi đỡ tạo mệt người)
     public List<ProductResponseDTO> getAllProductsForAdmin() {
-        return productRepository.findAllProduct()
-                .stream()
-                .sorted(Comparator.comparing(ProductResponseDTO::getProductID).reversed())
-                .collect(Collectors.toList());
+        return productRepository.findAllProduct();
+
     }
 
 }
