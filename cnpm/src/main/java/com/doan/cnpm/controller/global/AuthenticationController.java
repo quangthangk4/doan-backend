@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
-@CrossOrigin(origins = "http://localhost:3000")  // Cho phép từ localhost:3000
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/global/auth")
 @RequiredArgsConstructor
+
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final CustomerService customerService;

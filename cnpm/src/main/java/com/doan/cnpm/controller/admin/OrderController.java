@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
-@CrossOrigin(origins = "http://localhost:3000")  // Cho phép từ localhost:3000
+@CrossOrigin(origins = "*")
 public class OrderController {
     private final OrdersRepository ordersRepository;
     private final OrdersService ordersService;

@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:3000")  // Cho phép từ localhost:3000
+@CrossOrigin(origins = "*")
 public class MyInfoController {
     private final CustomerService customerService;
     private final OrdersService ordersService;
