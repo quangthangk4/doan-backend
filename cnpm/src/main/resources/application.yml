@@ -16,6 +16,13 @@ spring:
         use_sql_comments: true
         hqls: true
 
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+
 
 jwt:
   signerKey: "FsE+3hsTmHNHMhi2MPUTX8KSGsGtKoLyPoceeVMXjnsvhqR50zet4S63FDTgeOQA"

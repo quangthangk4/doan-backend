@@ -24,6 +24,7 @@ public class ProductDetailResponseDTO {
     private Status status;
     private Long ratingCount;
     private Long commentCount;
+    private Double ratingAverage;
     private List<String> images;
 
     public enum Status {

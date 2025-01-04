@@ -20,9 +20,10 @@ public interface OrderMapper {
                 .productId((Long) product[0])
                 .name((String) product[1])
                 .gender(CartResponseDTO.Gender.valueOf((String) product[2]))
-                .price_selling(((Number) product[3]).doubleValue())
+                .totalPrice((Double) product[3])
                 .quantity(((Number) product[4]).longValue())
-                .image((String) product[5])
+                .price_selling((Double) product[5])
+                .image((String) product[6])
                 .build();
     }
 

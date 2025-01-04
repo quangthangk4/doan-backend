@@ -18,7 +18,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
     @Query(value = "select * from orders o where o.customerid = :customerID and o.status = 'pending'", nativeQuery = true)
     Optional<Orders> findOrdersByCustomerID(@Param("customerID") Long customerID);
 
-    @Query(value = "SELECT p.productid ,p.name, p.gender, o.total_price , i.quantity, " +
+    @Query(value = "SELECT p.productid ,p.name, p.gender, o.total_price , i.quantity,(p.price_selling * i.quantity) as price, " +
             "(SELECT i.imageurl FROM product_image i WHERE i.productid = p.productid LIMIT 1) as imageUrl " +
             "FROM orders o " +
             "LEFT JOIN include i ON o.orderid = i.orderid LEFT JOIN product p ON p.productid = i.productid " +

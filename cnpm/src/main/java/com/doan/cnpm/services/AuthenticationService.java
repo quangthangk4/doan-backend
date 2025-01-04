@@ -80,11 +80,15 @@ public class AuthenticationService {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .subject(customer.getEmail())
-                .issuer("http://localhost:3000/")
+                .issuer("toiyeuVietNam")
                 .issueTime(new Date())
                 .expirationTime(new Date(
-                        Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
+                        Instant.now().plus(3, ChronoUnit.HOURS).toEpochMilli()
                 ))
+<<<<<<< HEAD
+=======
+                .claim("customerId", customer.getCustomerID())
+>>>>>>> 62b2f7a836d950e9823bd8aaf07bd41b95a9eb60
                 .claim("roles", buildScope(customer))
                 .build();
 

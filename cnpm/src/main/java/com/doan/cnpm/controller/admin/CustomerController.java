@@ -18,7 +18,11 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
+<<<<<<< HEAD
 @CrossOrigin(origins = "http://localhost:3000")
+=======
+@CrossOrigin(origins = "*")
+>>>>>>> 62b2f7a836d950e9823bd8aaf07bd41b95a9eb60
 public class CustomerController {
 
     private final CustomerService customerService;
