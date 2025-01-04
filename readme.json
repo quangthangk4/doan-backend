@@ -662,3 +662,24 @@ output: {
 Mô tả: Trả về thông tin tài khoản khi click vào 1 tài khoản của api 16
 bắt buộc phải đăng nhập, truyền header chứa token mới gọi được api
 
+
+
+####################################### 18.Tạo sản phẩm ########################################
+http://localhost:8080/admin/addProduct
+Phương thức: POST
+input: {
+    "name": "Áo Khoác Bomber Nữ",
+    "description": "Áo khoác bomber nữ thời trang, ấm áp",
+    "material": "Polyester",
+    "brand": "Fashionista",
+    "type": "Áo khoác",
+    "quantityImport": 50,
+    "priceImport": 350000,
+    "priceSelling": 450000,
+    "gender": "woman",
+    "status": "in_stock"
+}
+output: Tạo sản phẩm thành công
+
+
+
