@@ -64,7 +64,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
             "LEFT JOIN include i ON i.orderid = o.orderid " +
             "LEFT JOIN product p ON p.productid = i.productid " +
             "LEFT JOIN customer c ON c.customerid = o.customerid " +
-            "WHERE c.customerid = :customerId and o.status = 'completed'", nativeQuery = true)
+            "WHERE c.customerid = :customerId and o.status = 'completed'" +
+            "order by o.date desc ", nativeQuery = true)
     List<Object[]> getHistoryProductBuyed(@Param("customerId") Long customerId);
 
 }

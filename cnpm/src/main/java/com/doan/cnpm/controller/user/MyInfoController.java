@@ -3,6 +3,8 @@ package com.doan.cnpm.controller.user;
 import com.doan.cnpm.dto.request.ApiResponse;
 import com.doan.cnpm.dto.response.CustomerDetailResponseDTO;
 import com.doan.cnpm.dto.response.HistoryResponse;
+import com.doan.cnpm.dto.response.MyInfoResponse;
+import com.doan.cnpm.entity.Customer;
 import com.doan.cnpm.services.CustomerService;
 import com.doan.cnpm.services.OrdersService;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +24,9 @@ public class MyInfoController {
     private final OrdersService ordersService;
 
     @GetMapping("/myInfo")
-    public ApiResponse<CustomerDetailResponseDTO> getMyInfo() {
-        var data = customerService.detailCustomer(customerService.myInfo().getCustomerID());
-        return ApiResponse.<CustomerDetailResponseDTO>builder()
+    public ApiResponse<MyInfoResponse> getMyInfo() {
+        MyInfoResponse data = customerService.myInfoResponse();
+        return ApiResponse.<MyInfoResponse>builder()
                 .code(400)
                 .result(data)
                 .build();

@@ -5,6 +5,7 @@ import com.doan.cnpm.dto.request.OrdersRequestDTO;
 import com.doan.cnpm.repository.IncludeRepository;
 import com.doan.cnpm.services.OrdersService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/user/orders")
 @RequiredArgsConstructor
@@ -40,9 +42,6 @@ public class OrdersController {
 
     @GetMapping("/myCart")
     public ResponseEntity<List<CartResponseDTO>> getCart() {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        System.out.println("Granted Authorities: " + authentication.getAuthorities());
         return ResponseEntity.ok(ordersService.ShoppingCart());
     }
 
