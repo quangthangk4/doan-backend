@@ -43,7 +43,6 @@ public class OrdersController {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
         System.out.println("Granted Authorities: " + authentication.getAuthorities());
-
         return ResponseEntity.ok(ordersService.ShoppingCart());
     }
 

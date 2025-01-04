@@ -20,8 +20,9 @@ public class CartResponseDTO {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private double price_selling;
+    private Double totalPrice;
     private Long quantity;
+    private Double price_selling;
     private String image;
 
     public enum Gender {
