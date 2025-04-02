@@ -5,6 +5,9 @@
 - nếu mở ở vscode, hãy cài đủ extension liên quan như maven, Pack for java, Spring boot...
 - ấn nút tam giác ở trên đầu bên phải để chạy
 - sau đó qua frontend gọi API để lấy.
+
+
+- cách 2: mvn spring-boot:run (yêu cầu cài đặt maven)
 # link railway sever(dùng để xem nhanh data và sửa xóa nhanh hon) (hình như chỉ cho phép 3 người vào thui)
 - https://railway.app/invite/VXhAp0DRRlh
 
